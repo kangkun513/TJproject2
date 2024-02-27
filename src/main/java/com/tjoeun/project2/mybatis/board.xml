@@ -4,7 +4,7 @@
 
 	<!-- 메인 글 1건을 불러옴 -->
 	<select id="selectByIdx" parameterType="int" resultType="vo">
-		select * from board where idx = #{idx}
+		select * from main where idx = #{idx}
 	</select>
 	
 </mapper>

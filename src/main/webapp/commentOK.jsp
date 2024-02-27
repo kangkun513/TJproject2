@@ -11,8 +11,9 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	int mode = Integer.parseInt(request.getParameter("mode"));
+	out.println("mode : " + mode);
 	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	
+	out.println("currentPage : " + currentPage);	
 %>
 
 <jsp:useBean id="co" class="com.tjoeun.project2.vo.boardcommentVO">

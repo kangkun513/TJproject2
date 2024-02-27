@@ -17,7 +17,7 @@
 	#div0 {
 		border: 1px solid black;
 		height: 120px;
-		width: 17%;
+		width: 10%;
 		padding: 2px;
 		float: left;
 	}
@@ -25,7 +25,7 @@
 	#div1 {
 		border: 1px solid black;
 		height: 120px;
-		width: 65%;
+		width: 72%;
 		background-color: green;
 		padding: 2px;
 		float: left;
@@ -124,55 +124,36 @@
 <body>
 
 <div class="container">
-	<div style="width: 85%; position: absolute; top: 168px;">
-		<div id="div2" class="left" style="background-color: tomato;">
-			<div id="div2_1">소설 제목</div>
-			<div id="div2_2">소설 설명</div>
-			<div id="div2_3">검색바</div>
-			<div>
-				<input type="button" value="수정"/>
-				<input type="button" value="삭제"/>
-			</div>
-		</div>
-		<div id="div3"></div>
-		<div id="div4" class="right" style="background-color: skyblue;">
-			<h3>추천 소설 목록</h3>
-			<hr/>조회수 높은 소설 목록<br/>
-			<ol>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ol><hr/>
-			추천 높은 소설 목록<br/>
-			<ol>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ol><hr/>
-			새로운 소설 목록<br/>
-			<ol>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ol><hr/>
-		</div>
-	</div>
-	
-
 	<div>
 		<div id="div0" style="background-color: purple;">로고</div>
-		<div id="div1" style="background-color: green;">메뉴</div>
+		<div>
+			<div id="div1">
+				<table>
+					<tr>
+						<td style="border: 1px solid black; width: 50em; height: 2em;"
+							colspan="3"></td>
+					<tr>
+						<td style="border: 1px solid black; height: 2em;"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid black; height: 3em;"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 		<div id="divA" style="background-color: yellow">로그인</div>
-		<div id="nav">네비</div>
 	</div>
 	
-	<div id="div2"></div>
+	<div id="div2" class="left" style="position: sticky; top:0rem; background-color: tomato;">
+		<h4>소설 정보</h4><hr/>
+		<div id="div2_1">소설 제목</div>
+		<div id="div2_2">소설 설명</div>
+		<div id="div2_3">검색바</div>
+		<div>
+			<input type="button" value="수정"/>
+			<input type="button" value="삭제"/>
+		</div>
+	</div>
 	<div id="div3">
 		<div class="item left"></div>
 		<div class="item center" style="background-color: silver">
@@ -180,19 +161,45 @@
 		</div>
 		<div class="item right"></div>
 	</div>
-	<div id="div4"></div>
+	<div id="div4" class="right" style="position: sticky; top:0rem; background-color: skyblue;">
+		<h4>추천 소설 목록</h4><hr/>
+		조회수 높은 소설 목록<br/>
+		<ol>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol><hr/>
+		추천 높은 소설 목록<br/>
+		<ol>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol><hr/>
+		새로운 소설 목록<br/>
+		<ol>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol><hr/>
+	</div>
 	
 	<div id="div5">
 		<form method="post" action="commentOK.jsp?currentPage=1" name="commentForm">
 			<div id="div5-1" class="item" style="background-color: gray;">
 				<tr>
 					<th>댓글 목록</th>
-					<c:set var="comment" value="${commentList.list}"/>
+					<c:set var="comment" value="${boardcommentList.list}"/>
 					<!-- 댓글을 출력함 -->
-					<c:set var="comment" value="${commentList.list}"/>
+					<c:set var="comment" value="${boardcommentList.list}"/>
 					<!-- 댓글이 있는 경우 -->
 					<c:if test="${comment.size() != 0}">
-					<c:forEach var="co" items="${commentList.list}">
+					<c:forEach var="co" items="${boardcommentList.list}">
 					<fmt:formatDate var="codate" value="${co.writeDate}" pattern="yyyy/MM/dd a hh:mm:ss"/>
 						<tr>
 							<c:set var="name" value="${fn:replace(co.name, '<', '&lt;')}"/>
