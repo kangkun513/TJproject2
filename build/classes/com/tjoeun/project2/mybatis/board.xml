@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tjoeun.project2.vo.boardVO">
+
+	<!-- 메인 글 1건을 불러옴 -->
+	<select id="selectByIdx" parameterType="int" resultType="vo">
+		select * from board where idx = #{idx}
+	</select>
+	
+</mapper>
