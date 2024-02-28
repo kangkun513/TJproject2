@@ -125,8 +125,9 @@
 		<div id="div0">
 			<img src="#" alt="이미지 없음" />
 		</div>
+
 		<div>
-			<div id="div1" style="padding-left: 9em">
+			<div id="div1" style="padding-left: 10em">
 				<table>
 					<tr>
 						<td style="border: 1px solid black; width: 10em; height: 2em;">
@@ -152,8 +153,9 @@
 
 		<div id="divA"
 			style="text-align: right; padding-top: 20px; padding-right: 20px">
-			<input class="btn btn-primary" type="button" value="login" /> <input
-				class="btn btn-dark" type="button" value="register" />
+			<input class="btn btn-primary" type="button" value="login"
+				style="width: 35%" /> <input class="btn btn-dark" type="button"
+				value="register" style="width: 50%" />
 		</div>
 
 		<div id="div2">
@@ -175,70 +177,59 @@
 
 		<div id="div3">
 			div3
-			<div style="border: 3px solid red; height: 95%">
-				<form action="#" method="post">
-					<table class="table" id="table1">
-						<tr class="div3_tr1">
-							<td class="div3_tr1" style="height: 1em" colspan="2"><h3>#
-									글작성</h3></td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank2</td>
-							<td style="border: 1px solid black; width: 80%; height: 1em;">blank_2</td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank3</td>
-							<td style="border: 1px solid black; width: 80%; height: 3em;">
-								<select id="category" class="form-control">
-									<option>카테고리 입력</option>
-									<option>공포</option>
-									<option>스릴러</option>
-									<option>미스테리</option>
-									<option>순정</option>
-									<option>코미디</option>
-									<option>역사</option>
-							</select>
-							</td>
-						</tr>
-						<tr class="div3_tr1">
-							<td class="div3_tr1" style="height: 1em">blank4</td>
-							<td><input class="form-control" type="text"
-								placeholder="제목을 입력하세요." /></td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank5</td>
-							<td style="border: 1px solid black; width: 80%; height: 25em;">
-								<textarea class="form-control"
-									style="height: 100%; resize: none;">
-                
-              </textarea>
-							</td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank6</td>
-							<td style="border: 1px solid black; width: 80%; height: 2em;">black_6</td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank7</td>
-							<td style="border: 1px solid black; width: 80%; height: 2em;">blank_7</td>
-						</tr>
-						<tr class="div3_tr1">
-							<td>blank8</td>
-							<td style="border: 1px solid black; width: 100%; height: 50px;"
-								align="center"><input class="btn btn-sm btn-primary"
-								type="submit" value="Save" /> &nbsp;&nbsp; <input
-								class="btn btn-sm btn-danger" type="button" value="Cancel" /></td>
-						</tr>
+			<div style="border: 3px solid red; height: 95%; padding-left: 6em">
+				<table>
+					<tr>
+						<td style="border: 1px solid blue; width: 36em; height: 4em;"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid blue; height: 29em">
+							<div class="login-wrap p-4 p-md-5">
+								<div
+									class="icon d-flex align-items-center justify-content-center">
+									<span class="fa fa-user-o"></span>
+								</div>
+								<h3 class="text-center mb-4">Sign In</h3>
+								<form action="" class="login-form">
+									<div class="form-group">
+										<input type="text" class="form-control rounded-left"
+											placeholder="Username" required>
+									</div>
+									<div class="form-group d-flex">
+										<input type="password" class="form-control rounded-left"
+											placeholder="Password" required>
+									</div>
+									<div class="form-group">
+										<button type="submit"
+											class="form-control btn btn-primary rounded submit px-3">Login</button>
+									</div>
+									<div class="form-group d-md-flex">
+										<div class="w-50">
+											<label class="checkbox-wrap checkbox-primary">Remember
+												Me <input type="checkbox" checked> <span
+												class="checkmark"></span>
+											</label>
+										</div>
+										<div class="w-50 text-md-right">
+											<a href="#">Forgot Password</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid blue; height: 13em"></td>
+					</tr>
 
-					</table>
+				</table>
+
 			</div>
-			</form>
 		</div>
 
 		<div id="div4">div4</div>
 
 		<div id="div5">div5</div>
-
 
 
 	</div>

@@ -1,12 +1,9 @@
-package com.tjoeun.project2.vo;
+package com.tjoeun.ajax;
 
 import java.util.Date;
 
 public class boardVO {
-	
-	// 메인글
 	private int idx;
-	private String id;
 	private String subject;
 	private String content;
 	private int hit;
@@ -14,15 +11,14 @@ public class boardVO {
 	private Date writeDate;
 	private int gup;
 	private String category;
+	private String id;
 	
-	public boardVO() {
-	}
+	public boardVO() { }
 
-	public boardVO(int idx, String id, String subject, String content, int hit, int good, Date writeDate, int gup,
-			String category) {
+	public boardVO(int idx, String subject, String content, int hit, int good, Date writeDate, int gup, String category,
+			String id) {
 		super();
 		this.idx = idx;
-		this.id = id;
 		this.subject = subject;
 		this.content = content;
 		this.hit = hit;
@@ -30,20 +26,14 @@ public class boardVO {
 		this.writeDate = writeDate;
 		this.gup = gup;
 		this.category = category;
+		this.id = id;
 	}
-
 
 	public int getIdx() {
 		return idx;
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getSubject() {
 		return subject;
@@ -87,11 +77,16 @@ public class boardVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {
-		return "MainVO [idx=" + idx + ", id=" + id + ", subject=" + subject + ", content=" + content + ", hit=" + hit
-				+ ", good=" + good + ", writeDate=" + writeDate + ", gup=" + gup + ", category=" + category + "]";
+		return "boardVO [idx=" + idx + ", subject=" + subject + ", content=" + content + ", hit=" + hit + ", good="
+				+ good + ", writeDate=" + writeDate + ", gup=" + gup + ", category=" + category + ", id=" + id + "]";
 	}
-	
 }
