@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties resource="com/tjoeun/TJproject2/mybatis/db.properties" />
+	
+	<typeAliases>
+		<typeAlias type="com.tjoeun.TJproject2.vo.MainVO" alias="vo" />
+		<typeAlias type="com.tjoeun.TJproject2.vo.MainCommentVO" alias="co" />
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/tjoeun/TJproject2/mybatis/main.xml"/>
+		<mapper resource="com/tjoeun/TJproject2/mybatis/mainComment.xml"/>
+	</mappers>
+	
+</configuration>
