@@ -25,7 +25,7 @@
 	int idx = Integer.parseInt(request.getParameter("idx"));
 	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-	MainCommentList list = MainCommentService.getInstance().selectList();
+	MainCommentList list = MainCommentService.getInstance().selectList(idx);
 	MainVO mainvo = MainService.getInstance().selectByIdx(idx);
 	
 	MainList selectHit = MainService.getInstance().selectHit(); // 조회수 랭킹

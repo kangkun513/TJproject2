@@ -26,16 +26,26 @@ public class MainCommentService {
 		mapper.commit();
 		mapper.close();
 	}
+
+	public void reply(MainCommentVO vo) {
+		System.out.println("MainCommentService 클래스의 reply() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		
+		MainCommentDAO.getInstance().reply(mapper, vo);
+		
+		mapper.commit();
+		mapper.close();
+	}
 	
 	// read.jsp에서 호출되는 mapper를 얻어온 후 MainCommentDAO 클래스의 테이블에 저장된 
 	// 전체 댓글 목록을 얻어오는 select sql 명령 실행하는 메소드를 호출하는 메소드
-	public MainCommentList selectList() {
+	public MainCommentList selectList(int idx) {
 		System.out.println("MainCommentService 클래스의 selectList() 메소드 실행");
 		SqlSession mapper = MySession.getSession();
 		
 		MainCommentList list = new MainCommentList();
-		list.setList(MainCommentDAO.getInstance().selectList(mapper));
-		System.out.println(list);
+		list.setList(MainCommentDAO.getInstance().selectList(mapper, idx));
+		// System.out.println(list);
 		
 		mapper.close();
 		return list;
@@ -46,7 +56,7 @@ public class MainCommentService {
 		SqlSession mapper = MySession.getSession();
 		
 		MainCommentVO vo = MainCommentDAO.getInstance().selectByIdx(mapper, idx);
-		System.out.println(vo);
+		// System.out.println(vo);
 		
 		mapper.close();
 		return vo;
@@ -62,7 +72,6 @@ public class MainCommentService {
 		mapper.close();
 	}
 	
-	
 	public void deleteCheck(int idx) {
 		System.out.println("MainCommentService 클래스의 deleteCheck() 메소드 실행");
 		SqlSession mapper = MySession.getSession();
@@ -72,4 +81,16 @@ public class MainCommentService {
 		mapper.commit();
 		mapper.close();
 	}
+	
+	// 미사용
+	public void good(int idx) {
+		System.out.println("MainCommentService 클래스의 good() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		
+		MainCommentDAO.getInstance().good(mapper, idx);
+		
+		mapper.commit();
+		mapper.close();
+	}
+	
 }

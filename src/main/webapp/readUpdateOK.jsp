@@ -168,11 +168,11 @@
 	<div id="div2" class="left" style="position: sticky; top:0rem; background-color: tomato;">
 		<h4>소설 정보</h4><hr/>
 		<label for="title"><div id="div2_1">
-			글 제목<br/>
+			소설 제목<br/>
 			<input id="title" name="subject" value="${boardvo.subject}" style="width: 100%;"/></div></label>
 		<div id="div2_2">explain 소설설명</div>
 
-		<div id="div2_3" align="center">
+		<div id="div2_2" align="center">
 				<input class="category" type="radio" value="작성자">글쓴이 <input
 					class="category" type="radio" value="제목" /> 제목 <input type="text"
 					style="width: 90%; margin-bottom: 4%" /> <input
@@ -180,7 +180,7 @@
 					style="width: 50%;" value="검색"/>
 		</div>
 		
-		<div align="center">
+		<div id="div2_3" align="center">
 			<input class="btn btn-primary btn-sm" type="submit" value="수정 완료"/>
 			<input class="btn btn-secondary btn-sm" type="button" value="수정 취소" 
 				onclick="location.href='selectByIdx.jsp?idx=${boardvo.idx}&currentPage=${currentPage}'"/>

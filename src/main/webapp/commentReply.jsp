@@ -16,30 +16,28 @@
 </jsp:useBean>
 
 <%
-	String upcomment = request.getParameter("upcomment");
+	String content = request.getParameter("content");
 
-	if(upcomment == null || upcomment.trim().equals("")) {
-		int idx = Integer.parseInt(request.getParameter("idx"));
+	if(content == null || content.trim().equals("")) {
+		int idx = Integer.parseInt(request.getParameter("voidx"));
 		int comidx = Integer.parseInt(request.getParameter("comidx"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		out.println("<script>");
-		out.println("alert('" + comidx + "번 댓글 수정 실패')");
+		out.println("alert('" + comidx + "번 댓글 답글 실패')");
 		out.println("location.href='selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage + "'");
 		out.println("</script>");
 	} else {
-		int idx = Integer.parseInt(request.getParameter("idx"));
-		int comidx = Integer.parseInt(request.getParameter("comidx"));
+		int voidx = Integer.parseInt(request.getParameter("voidx"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		//	수정할 댓글에 수정하기 위해 원 댓글 내용 얻어옴
-		MainCommentVO originalComment = MainCommentService.getInstance().selectByIdx(comidx);
-		upcomment.replace(">", "%gt;");
-		upcomment.replace("<", "%lt;");
-		originalComment.setContent(upcomment.trim());
-		// System.out.println("originalComment: " + originalComment);
+		int comidx = Integer.parseInt(request.getParameter("comidx"));
+		vo.setName("reply" + comidx);
+		vo.setContent(content);
+		vo.setGup(voidx);
+		vo.setLev(2);
+		System.out.println("vovo" + vo);
+		MainCommentService.getInstance().reply(vo);
 		
-		MainCommentService.getInstance().update(originalComment);
-	
-		response.sendRedirect("selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage);	
+		response.sendRedirect("selectByIdx.jsp?idx=" + voidx + "&currentPage=" + currentPage);		
 	}
 %>
 

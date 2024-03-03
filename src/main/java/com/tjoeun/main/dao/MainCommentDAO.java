@@ -20,9 +20,9 @@ public class MainCommentDAO {
 		mapper.insert("insertComment", vo);
 	}
 	
-	public ArrayList<MainCommentVO> selectList(SqlSession mapper) {
+	public ArrayList<MainCommentVO> selectList(SqlSession mapper, int idx) {
 		System.out.println("MainCommentDAO 클래스의 selectList() 메소드 실행");
-		return (ArrayList<MainCommentVO>) mapper.selectList("selectCommentList");
+		return (ArrayList<MainCommentVO>) mapper.selectList("selectCommentList", idx);
 	}
 	
 	public MainCommentVO selectByIdx(SqlSession mapper, int idx) {
@@ -38,6 +38,17 @@ public class MainCommentDAO {
 	public void update(SqlSession mapper, MainCommentVO vo) {
 		System.out.println("MainCommentDAO 클래스의 update() 메소드 실행");
 		mapper.update("updateComment", vo);
+	}
+	
+	public void reply(SqlSession mapper, MainCommentVO vo) {
+		System.out.println("MainCommentDAO 클래스의 reply() 메소드 실행");
+		mapper.update("replyComment", vo);
+	}
+	
+	// 미사용
+	public void good(SqlSession mapper, int idx) {
+		System.out.println("MainCommentDAO 클래스의 good() 메소드 실행");
+		mapper.update("goodComment", idx);
 	}
 
 }

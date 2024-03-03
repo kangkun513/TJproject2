@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- bootstrap icon -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<script type="text/javascript" src="./js/mainjs.js" defer="defer"></script>
+<script type="text/javascript" src="./js/board.js" defer="defer"></script>
 
 <style type="text/css">
 #div0 {
@@ -182,12 +182,14 @@
 		<div id="div2">
 			왼쪽 창
 			<div id="div2_1">
+				<form action="search.jsp" method="post">
 				<select>
 					<option>subject</option>
 					<option>id</option>
 				</select>
-				<input type="text" placeholder="검색어를 입력하세요" size="18">
-				<input type="button" class="btn btn-outline-primary btm-sm" value="검색" onclick="searchFuntion()">
+				<input name="searchVal" type="text" placeholder="검색어를 입력하세요" size="18">
+				<input type="submit" class="btn btn-outline-primary btm-sm" value="검색">
+				</form>
 			</div>
 
 			<div id="div2_2">세부 카테고리

@@ -20,7 +20,7 @@
 	int idx = Integer.parseInt(request.getParameter("idx"));
 	int gup = Integer.parseInt(request.getParameter("gup"));
 	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	System.out.println("idx: "+ idx + " gup: "+ gup + " currentPage: "+ currentPage);
+	
 //	read.jsp에서 넘겨받은 댓글 정보 테이블에 저장하는 메소드 호출
 	MainCommentService.getInstance().insert(vo);
 //	저장 후 페이지 넘김

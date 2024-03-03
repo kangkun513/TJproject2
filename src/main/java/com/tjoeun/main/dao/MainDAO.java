@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 
 import com.tjoeun.main.vo.MainVO;
+import com.tjoeun.main.vo.Param;
 
 public class MainDAO {
 	private static MainDAO instance = new MainDAO();
@@ -73,6 +74,27 @@ public class MainDAO {
 	public void update(SqlSession mapper, MainVO vo) {
 		System.out.println("MainDAO 클래스의 update() 메소드 실행");
 		mapper.update("update", vo);
+	}
+	
+//	MainService 클래스에서 호출되는 mapper와 태그, 카테고리, 검색어가 저장된 Param 클래스 객체를 넘겨받고 
+//	main.xml 파일의 테이블에 저장된 전체 글 중에서 태그 따른 검색어를 포함하는 글의 개수를
+//	얻어오는 select sql 명령을 실행하는 메소드
+	public int selectCount(SqlSession mapper, Param param) {
+		System.out.println("MainDAO 클래스의 selectCount() 메소드 실행");
+		return (int) mapper.selectOne("selectCountMulti", param); 
+	}
+	
+//	MainService 클래스에서 호출되는 mapper와 화면에 출력할 시작 인덱스와 끝 인덱스, 카테고리, 검색어가 
+//	저장된 Param 클래스 객체를 넘겨받고 main.xml 파일의 테이블에 저장된 전체 글 중에서 카테고리별 
+//	검색어를 포함하는 글의 목록을 얻어오는 select sql 명령을 실행하는 메소드	
+	public ArrayList<MainVO> selectList(SqlSession mapper, Param param) {
+		System.out.println("MainDAO 클래스의 selectList() 메소드 실행");
+		return (ArrayList<MainVO>) mapper.selectList("selectListMulti", param);
+	}
+	
+	public void good(SqlSession mapper, int idx) {
+		System.out.println("MainDAO 클래스의 good() 메소드 실행");
+		mapper.update("good", idx);
 	}
 
 }

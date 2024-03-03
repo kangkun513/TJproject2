@@ -9,7 +9,6 @@ public class MainCommentVO {
 	private Date writeDate;
 	private int gup;
 	private String deleted;
-	
 	public int getIdx() {
 		return idx;
 	}

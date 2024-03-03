@@ -5,10 +5,12 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.tjoeun.main.dao.MainCommentDAO;
 import com.tjoeun.main.dao.MainDAO;
 import com.tjoeun.main.mybatis.MySession;
 import com.tjoeun.main.vo.MainList;
 import com.tjoeun.main.vo.MainVO;
+import com.tjoeun.main.vo.Param;
 
 public class MainService {
 	
@@ -55,7 +57,7 @@ public class MainService {
 		SqlSession mapper = MySession.getSession();	
 		
 		MainVO vo = MainDAO.getInstance().selectByIdx(mapper, idx);
-		System.out.println(vo);
+		// System.out.println(vo);
 		
 		mapper.close();
 		return vo;
@@ -67,6 +69,18 @@ public class MainService {
 		System.out.println("MainService 클래스의 increment() 메소드 실행");
 		SqlSession mapper = MySession.getSession();
 		MainDAO.getInstance().increment(mapper, idx);
+		mapper.commit();
+		mapper.close();
+	}
+	
+//	read.jsp에서 호출되는 추천수를 증가시킬 글번호를 넘겨받고 mapper를 얻어온 후 메인글의 추천수를
+//	증가시키는 MainDAO 클래스의 update sql 명령을 실행하는 메소드를 호출하는 메소드
+	public void good(int idx) {
+		System.out.println("MainService 클래스의 good() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		
+		MainDAO.getInstance().good(mapper, idx);
+		
 		mapper.commit();
 		mapper.close();
 	}
@@ -129,6 +143,53 @@ public class MainService {
 		
 		mapper.commit();
 		mapper.close();
+	}
+	
+//	search.jsp에서 호출되는 브라우저에 표시할 페이지 번호(currentPage), searchTag, category, searchVal를 넘겨받고 
+//	mapper를 얻어온 후 MainDAO 클래스의 1페이지 분량의 카테고리에 따른 검색어를 포함하는 
+//	글 목록을 얻어오는 select sql 명령을 실행하는 메소드를 호출하는 메소드
+	public MainList selectSearchList(int currentPage) {
+		System.out.println("MainService 클래스의 selectSearchList() 메소드 실행");
+		SqlSession mapper = MySession.getSession();	
+		
+		int pageSize = 10;
+		int totalCount = MainDAO.getInstance().selectCount(mapper);		
+		System.out.println("currentPage: " + currentPage);
+		System.out.println("totalCount: " + totalCount);
+		
+		MainList mainList = new MainList(pageSize, totalCount, currentPage);
+		HashMap<String, Integer> hmap = new HashMap<String, Integer>();
+		hmap.put("startNo", mainList.getStartNo());
+		hmap.put("endNo", mainList.getEndNo());
+		mainList.setList(MainDAO.getInstance().selectList(mapper, hmap));
+		System.out.println(mainList);
+		
+		mapper.close();
+		return mainList;
+	}
+	
+	public MainList selectSearchList(int currentPage, String searchTag, String category, String searchVal) {
+		System.out.println("MainService 클래스의 selectSearchList() 메소드 실행");
+		SqlSession mapper = MySession.getSession();
+		MainList mainList = null;
+		
+		try {
+			int pageSize = 10;
+			Param param = new Param();
+			param.setSearchTag(searchTag);
+			param.setCategory(category);
+			param.setSearchVal(searchVal);
+			int totalCount = MainDAO.getInstance().selectCount(mapper, param);
+			System.out.println(totalCount); 
+			mainList = new MainList(pageSize, totalCount, currentPage);
+			param.setStartNo(mainList.getStartNo());
+			param.setEndNo(mainList.getEndNo());
+			mainList.setList(MainDAO.getInstance().selectList(mapper, param));
+			System.out.println("mainList: " + mainList);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mainList;
 	}
 	
 }

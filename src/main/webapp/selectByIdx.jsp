@@ -40,6 +40,10 @@
 	} else if(job.equals("update")) {
 		MainService.getInstance().selectByIdx(idx);
 		response.sendRedirect("readUpdate.jsp?idx=" + idx + "&currentPage=" + currentPage);
+	// read.jsp에서 추천 버튼 클릭 시
+	} else if(job.equals("good")) {
+		MainService.getInstance().good(idx);
+		response.sendRedirect("selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage);
 	// readUpdate.jsp에서 수정 완료 버튼 클릭 시
 	} else if(job.equals("updateOK")) {
 		MainService.getInstance().update(vo);
@@ -47,12 +51,11 @@
 		out.println("alert('" + idx + "번 글 수정')");
 		out.println("location.href='selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage + "'");
 		out.println("</script>");
-		// response.sendRedirect("selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage);
 	// Main.jsp에서 게시글 제목 클릭 시, readUpdate.jsp에서 수정 취소 버튼 클릭 시
 	} else {
 		
-		MainCommentList list = MainCommentService.getInstance().selectList();
-		MainVO mainvo = MainService.getInstance().selectByIdx(idx);
+		MainVO mainvo = MainService.getInstance().selectByIdx(idx); // 메인글
+		MainCommentList list = MainCommentService.getInstance().selectList(idx); // 해당 글의 댓글
 		
 		MainList selectHit = MainService.getInstance().selectHit(); // 조회수 랭킹
 		MainList selectGood = MainService.getInstance().selectGood(); // 추천수 랭킹

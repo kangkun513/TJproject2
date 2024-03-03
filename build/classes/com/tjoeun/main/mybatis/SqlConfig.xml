@@ -9,6 +9,7 @@
 		<!-- 별명 설정 -->
 		<typeAlias type="com.tjoeun.main.vo.MainVO" alias="vo" />
 		<typeAlias type="com.tjoeun.main.vo.MainCommentVO" alias="co" />
+		<typeAlias type="com.tjoeun.main.vo.Param" alias="param"/>
 	</typeAliases>
 	
 	<environments default="development">

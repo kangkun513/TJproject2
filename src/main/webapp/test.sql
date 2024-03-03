@@ -73,7 +73,7 @@ INSERT INTO maincomment (idx, name, content, gup) VALUES (maincomment_idx_seq.ne
 INSERT INTO maincomment (idx, name, content, gup) VALUES (maincomment_idx_seq.nextval, 'ill', '축하합니다4', main_idx_seq.currval);
 
 
-
+select * from maincomment where gup = 1 order by idx asc;
 select * from main;
 select count(*) from main;
 select * from main order by hit desc;

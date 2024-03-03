@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/board.js" defer="defer"></script>
+
 <style type="text/css">
 	
 	.container {
@@ -161,19 +162,20 @@
 	<div id="div2" class="left" style="position: sticky; top:0rem; background-color: tomato;">
 		<h4>소설 정보</h4><hr/>
 		<div id="div2_1">
+			소설 제목<br/>
 			<c:if test="${boardvo.deleted == 'no'}">
 				<c:set var="subject" value="${fn:replace(boardvo.subject, '<', '&lt;')}"/>
 				<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
-				글 제목<br/><b>${subject}</b>
+				<b>${subject}</b>
 			</c:if>
 			<c:if test="${boardvo.deleted == 'yes'}">
-				글 제목<br/><b>삭제된 글입니다</b>
+				<b>삭제된 글입니다</b>
 			</c:if>
 		</div>
 
 		<div id="div2_2">explain 소설설명</div>
 
-		<div id="div2_3" align="center">
+		<div id="div2_2" align="center">
 			<form action="#" method="post">
 				<input class="category" type="radio" value="작성자">글쓴이 <input
 					class="category" type="radio" value="제목" /> 제목 <input type="text"
@@ -183,11 +185,16 @@
 			</form>
 		</div>
 		
-		<div align="center">
-			<input class="btn btn-primary btn-sm" type="button" value="수정" 
+		<div id="div2_2" align="center">
+			<input class="btn btn-primary btn-sm" type="button" value="수정"
 				onclick="location.href='selectByIdx.jsp?idx=${boardvo.idx}&currentPage=${currentPage}&job=update'"/>
 			<input class="btn btn-danger btn-sm" type="button" value="삭제" 
 				onclick="location.href='selectByIdx.jsp?idx=${boardvo.idx}&currentPage=${currentPage}&job=delete'"/>
+		</div>
+		
+		<div id="div2_3" align="center">
+			<input class="btn btn-info btn-lg" value="추천"/ style="height: 100%; width: 100%"
+				onclick="location.href='selectByIdx.jsp?idx=${boardvo.idx}&currentPage=${currentPage}&job=good'"/>
 		</div>
 	</div>
 	<div id="div3">
@@ -248,59 +255,76 @@
 						<c:if test="${comment.size() != 0}">
 							<c:set var="upidx" value="1" />
 							<c:forEach var="co" items="${commentList.list}">
-							<!-- 글 그룹 번호와 댓글 번호 그룹이 같을 경우 -->
-							<c:if test="${co.gup == boardvo.gup}">
-							<c:set var="commentForm" value="form${co.idx}"></c:set>
-							<form action="commentUpdate.jsp" name="${commentForm}" method="post" id="${commentForm}">
 							
-							<div style="display: flex;">
-								idx: <input type="text" name="idx" value="${idx}" size="1"/>
-								comidx: <input type="text" id="comidx" name="comidx" value="${co.idx}" size="1"/>
-								mode: <input type="text" name="mode" value="1" size="1"/>
-								title: <input type="text" name="title" value="1"/>
-								currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1"/>
-							</div>
+							<c:set var="updateForm" value="updateform${co.idx}"></c:set>
+							<c:set var="replyForm" value="replyform${co.idx}"></c:set>
+							
 							<fmt:formatDate var="codate" value="${co.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
 								<c:set var="name" value="${fn:replace(co.name, '<', '&lt;')}"/>
 								<c:set var="name" value="${fn:replace(name, '>', '&gt;')}"/>
 								<c:set var="content" value="${fn:replace(co.content, '<', '&lt;')}"/>
 								<c:set var="content" value="${fn:replace(content, '>', '&gt;')}"/>
 								<c:set var="content" value="${fn:replace(content, enter, '<br/>')}"/>
-								<div>${upidx}. </div><br/>
+								<div>
+								
+								${upidx}. 
+								</div><br/>
 								<c:set var="upidx" value="${upidx + 1}" />
+								
 								<!-- 삭제된 댓글이 아닐 경우 표시 -->
 								<c:if test="${co.deleted == 'no'}">
 									<div>
-										<div>${content}</div><br/>
-										${name}님이 ${codate}에 작성<br/>
-										<!-- 자바스크립트 함수의 인수로 문자열을 전달할 경우 반드시 ''로 묶어야 함 -->
-										<input class="btn btn-primary btn-sm" type="button" value="댓글 수정" onclick="setting(1, '댓글 수정')"/>
-										<input class="btn btn-danger btn-sm" type="button" value="댓글 삭제" 
-											onclick="location.href='commentDelete.jsp?idx=${boardvo.idx}&commentidx=${co.idx}&currentPage=${currentPage}'"/>
-										<input class="btn btn-warning btn-sm" type="button" value="답글 달기" onclick="setting(2, '댓글 삭제')"/><br/>
-										<div id="commentUpdateForm" style="display: block;">
-											<textarea class="form-control form-control-sm" type="text" id="upcomment" name="upcomment" rows="4"
+											<div>${content}</div><br/>
+											${name}님이 ${codate}에 작성<br/>
+											<!-- 자바스크립트 함수의 인수로 문자열을 전달할 경우 반드시 ''로 묶어야 함 -->
+											<input class="btn btn-primary btn-sm" type="button" value="댓글 수정" onclick="setting(${co.idx}, 1)"/>
+											<input class="btn btn-danger btn-sm" type="button" value="댓글 삭제" 
+												onclick="location.href='commentDelete.jsp?idx=${boardvo.idx}&commentidx=${co.idx}&currentPage=${currentPage}'"/>
+											<input class="btn btn-warning btn-sm" type="button" value="답글 달기" onclick="setting(${co.idx}, 2)"/><br/>
+									<form action="commentUpdate.jsp" name="${updateForm}" method="post" id="${updateForm}" style="display: none;">
+											<textarea class="form-control form-control-sm" type="text" name="upcomment" rows="4"
 												style="width: 50%; resize: none; display: inline-block;"></textarea>
 											<div style="display: inline-block;">
 												<input class="btn btn-primary btn-sm" type="submit" value="댓글 수정"/><br/>
-												<input class="btn btn-secondary btn-sm" type="button" value="취소" onclick=""/>
+												<input class="btn btn-secondary btn-sm" type="button" value="취소" onclick="setting(${co.idx}, 3)"/>
 											</div>
-										</div>
+											<div style="display: flex;">
+												idx: <input type="text" name="idx" value="${idx}" size="1"/>
+												comidx: <input type="text" id="comidx" name="comidx" value="${co.idx}" size="1"/>
+												mode: <input type="text" name="mode" value="1" size="1"/>
+												title: <input type="text" name="title" value="1"/>
+												currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1"/>
+											</div>
+									</form>
+									<form action="#" name="${replyForm}" method="post" id="${replyForm}" style="display: none;">
+											<textarea class="form-control form-control-sm" type="text" name="content" rows="4"
+												style="width: 50%; resize: none; display: inline-block;"></textarea>
+											<div style="display: inline-block;">
+												<input class="btn btn-warning btn-sm" type="submit" value="답글 달기"/><br/>
+												<input class="btn btn-secondary btn-sm" type="button" value="취소" onclick="setting(${co.idx}, 3)"/>
+											</div>
+											<div style="display: flex;">
+												idx: <input type="text" name="voidx" value="${idx}" size="1"/>
+												comidx: <input type="text" id="comidx" name="comidx" value="${co.idx}" size="1"/>
+												mode: <input type="text" name="mode" value="1" size="1"/>
+												title: <input type="text" name="title" value="1"/>
+												currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1"/>
+											</div>
+									</form>
 									</div><hr/>
 								</c:if>
-								</form>
 								<!-- 삭제된 댓글일 경우 표시 -->
 								<c:if test="${co.deleted == 'yes'}">
 									<div>삭제된 댓글입니다</div><hr/>
 								</c:if>
-							</c:if>
+							
 							</c:forEach>
 						</c:if>
 					</div><hr/>
 					<!-- 댓글이 없는 경우 -->
 					<div style="background-color: gray;">
 						<c:if test="${comment.size() == 0}">
-								<div><marquee><b>댓글이 없습니다</b></marquee></div><br/>
+								<div style="height: 10em;"><marquee><b>댓글이 없습니다</b></marquee></div><br/>
 						</c:if>
 					</div>
 					<div id="div5_2" style="background-color: orange;">
