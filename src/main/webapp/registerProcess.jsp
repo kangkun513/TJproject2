@@ -77,7 +77,7 @@
         request.getSession().setAttribute("messageType", "성공 메시지: ");
         request.getSession().setAttribute("messageContent", "회원가입이 완료되었습니다.");
         session.setAttribute("registerOk", registerOk);
-        response.sendRedirect("register.jsp");		// <--- 회원가입 성공시 다른 페이지로 보내게 수정할 것
+        response.sendRedirect("list.jsp");		// <--- 회원가입 성공시 다른 페이지로 보내게 수정할 것
     } catch (Exception e) {
         e.printStackTrace();
         // 오류 메시지 설정
