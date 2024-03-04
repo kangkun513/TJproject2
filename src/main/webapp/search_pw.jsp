@@ -26,60 +26,63 @@
 
 </head>
 <body>
-
 	<div class="container">
+	
+	<div>
 		<div id="div0">
-			<a href="./main.jsp">
+			<a href="./list.jsp">
 				<img src="./images/clock.png" alt="이미지 없음" width="100px"
 					style="margin-left: 10px" />
 			</a>
 		</div>
 
-		<div>
-			<div id="div1" style="padding-left: 7em">
-				<table>
-					<tr>
-						<td style="border: 1px solid black; width: 10em; height: 2em;">
-							1</td>
-						<td style="border: 1px solid black; width: 10em;">1-1</td>
-						<td style="border: 1px solid black; width: 10em;">1-2</td>
-						<td style="border: 1px solid black; width: 10em;">1-3</td>
-					<tr>
-						<td style="border: 1px solid black; height: 2em;">2</td>
-						<td style="border: 1px solid black;">2-1</td>
-						<td style="border: 1px solid black;">2-2</td>
-						<td style="border: 1px solid black;">2-3</td>
-					</tr>
-					<tr>
-						<td style="border: 1px solid black; height: 3em;">
-							<a href="./main.jsp">
-								<img alt="홈버튼" src="./images/menu_re.png"
-									style="width:145px; padding-left: 10px; padding-top:7px">
-							</a>
-						</td>
-						<td style="border: 1px solid black;">3-1</td>
-						<td style="border: 1px solid black;">3-2</td>
-						<td style="border: 1px solid black;">3-3</td>
-					</tr>
-				</table>
-			</div>
+		<div id="div1" style="padding-left: 7em">
+			<table>
+				<tr>
+					<td style="border: 1px solid black; width: 10em; height: 2em;">
+						1</td>
+					<td style="border: 1px solid black; width: 10em;">1-1</td>
+					<td style="border: 1px solid black; width: 10em;">1-2</td>
+					<td style="border: 1px solid black; width: 10em;">1-3</td>
+				<tr>
+					<td style="border: 1px solid black; height: 2em;">2</td>
+					<td style="border: 1px solid black;">2-1</td>
+					<td style="border: 1px solid black;">2-2</td>
+					<td style="border: 1px solid black;">2-3</td>
+				</tr>
+				<tr>
+					<td style="border: 1px solid black; height: 3em;">
+						<a href="./main.jsp">
+							<img alt="홈버튼" src="./images/menu_re.png"
+								style="width:145px; padding-left: 10px; padding-top:7px">
+						</a>
+					</td>
+					<td style="border: 1px solid black;">3-1</td>
+					<td style="border: 1px solid black;">3-2</td>
+					<td style="border: 1px solid black;">3-3</td>
+				</tr>
+			</table>
 		</div>
 
 		<div id="divA"
-			style="text-align: right; padding-top: 20px; padding-right: 20px">
+			style="text-align: right;">
+			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
 				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp'" />
+					style="width: 35%" onclick="location.href='./login.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="register"
+					style="width: 50%" onclick="location.href='./register.jsp'"/>
 			</c:if>
+			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
+				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp'" />
-
+					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 			</c:if>
-			<input class="btn btn-dark" type="button" value="register"
-				style="width: 50%" />
 		</div>
+	</div>
 
+	<div>
 		<div id="div2">
 			div2
 		<div id="div2_1">subject</div>
@@ -151,7 +154,7 @@
 		</div>
 
 		<div id="div4">div4 ${param.backPage} </div>
-
+	</div>
 		<div id="div5">div5</div>
 
 	</div>

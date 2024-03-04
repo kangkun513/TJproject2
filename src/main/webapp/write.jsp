@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +26,7 @@
 <body>
 	<div class="container">
 		<div id="div0">
-			<a href="./list.jsp">
+			<a href="list.jsp">
 				<img src="./images/clock.png" alt="이미지 없음" width="100px"
 					style="margin-left: 10px" />
 			</a>
@@ -51,7 +48,7 @@
 					</tr>
 					<tr>
 						<td style="border: 1px solid black; height: 3em;">
-							<a href="./main.jsp">
+							<a href="./Main.jsp">
 								<img alt="홈버튼" src="./images/menu_re.png"
 									style="width:145px; padding-left: 10px; padding-top:7px">
 							</a>
@@ -69,15 +66,15 @@
 			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
 				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					style="width: 35%" onclick="location.href='./login.jsp?backPage=1'" />
 				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" />
+					style="width: 50%" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1'" />
 			</c:if>
 		</div>
 

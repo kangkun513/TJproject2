@@ -16,124 +16,8 @@
 <!-- bootstrap icon -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/mainjs.js" defer="defer"></script>
+<link rel="stylesheet" href="./css/main.css"/>
 
-<style type="text/css">
-#div0 {
-	border: 1px solid black;
-	height: 120px;
-	width: 10%;
-	padding: 2px;
-	float: left;
-}
-
-#div1 {
-	border: 1px solid black;
-	height: 120px;
-	width: 72%;
-	background-color:;
-	padding: 2px;
-	float: left;
-	display: inline-block;
-}
-
-#divA {
-	border: 1px solid black;
-	height: 120px;
-	width: 15%;
-	padding: 2px;
-	display: inline-block;
-}
-
-#nav {
-	border: 1px solid black;
-	width: 97%;
-	height: 3rem;
-}
-
-
-#div2 {
-	width: 17%;
-	height: 50rem;
-	border: 1px solid black;
-	float: left;
-	position: relative;
-}
-
-#div2_1 {
-	width: 85%;
-	height: 100px;
-	border: 2px solid black;
-	background-color: lavender;
-	display: inline-block;
-	float: left;
-	font-size: 15px;
-	margin-left: 12px;
-	margin-bottom: 10px;
-}
-
-#div2_2 {
-	width: 85%;
-	height: 100px;
-	border: 2px solid black;
-	background-color: lavender;
-	display: inline-block;
-	float: left;
-	margin-left: 12px;
-	margin-bottom: 10px;
-}
-
-#div2_3 {
-	width: 85%;
-	height: 100px;
-	border: 2px solid black;
-	background-color: lavender;
-	display: grid;
-   	place-items: center;
-	margin-left: 12px;
-}
-
-#div3 {
-	width: 65%;
-	height: 50rem;
-	float: left;
-	border: 1px solid black;
-}
-
-#table1 {
-	width: 95%;
-	height: 95%;
-	margin-left: 15px;
-	margin-right: 15px;
-}
-
-.div3_tr1 {
-	border: 1px solid black;
-	background-color: lavender;
-	vertical-align : top;
-}
-
-.div3_tr2 {
-	border: 1px solid black;
-	background-color: lavender;
-	text-align: center;
-}
-
-#div4 {
-	width: 15%;
-	height: 50rem;
-	border: 1px solid black;
-	float: left;
-}
-
-#div5 {
-	border: 1px solid black;
-	height: 5rem;
-	border: 1px solid black;
-	width: 97%;
-	display: inline-block;
-}
-
-</style>
 </head>
 <body>
 
@@ -151,7 +35,7 @@
 				<input class="btn btn-primary" type="button" value="login"
 					style="width: 35%" onclick="location.href='./login.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" />
+					style="width: 50%" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">

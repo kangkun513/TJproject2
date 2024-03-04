@@ -25,18 +25,17 @@
 <link rel="stylesheet" href="./css/login.css"/>
 </head>
 <body>
-
+	
 	<div class="container">
-		<div style="display: flex;">
-			<div id="div0">
+		<div>
+			<div id="div0" style="background-color: purple;">
 				<a href="./list.jsp">
-					<img src="./images/clock.png" alt="이미지 없음" width="100px"
-						style="margin-left: 10px" />
+						<img src="./images/clock.png" alt="이미지 없음" width="100px"
+							style="margin-left: 10px" />
 				</a>
 			</div>
-	
 			<div>
-				<div id="div1" style="padding-left: 7em">
+				<div id="div1">
 					<table>
 						<tr>
 							<td style="border: 1px solid black; width: 10em; height: 2em;">
@@ -51,12 +50,7 @@
 							<td style="border: 1px solid black;">2-3</td>
 						</tr>
 						<tr>
-							<td style="border: 1px solid black; height: 3em;">
-								<a href="./main.jsp">
-									<img alt="홈버튼" src="./images/menu_re.png"
-										style="width:145px; padding-left: 10px; padding-top:7px">
-								</a>
-							</td>
+							<td style="border: 1px solid black; height: 3em;">3</td>
 							<td style="border: 1px solid black;">3-1</td>
 							<td style="border: 1px solid black;">3-2</td>
 							<td style="border: 1px solid black;">3-3</td>
@@ -64,20 +58,24 @@
 					</table>
 				</div>
 			</div>
+			
+			<c:set var="mainvo" value="${Mainboard}" />
 	
-			<div id="divA"
-				style="text-align: right; padding-top: 20px; padding-right: 20px;">
+			<div class="login" id="divA"
+				style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
+				<!-- 로그인하지 않은 상태 -->
 				<c:if test="${loginCheck != 1}">
 					<input class="btn btn-primary" type="button" value="login"
-						style="width: 35%" onclick="location.href='./login.jsp'" />
+						style="width: 35%" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					<input class="btn btn-dark" type="button" value="register"
+						style="width: 50%" onclick="location.href='./register.jsp'"/>
 				</c:if>
+				<!-- 로그인한 상태 -->
 				<c:if test="${loginCheck == 1}">
+					${loginInfoID}님 환영합니다
 					<input class="btn btn-primary" type="button" value="logout"
-						style="width: 35%" onclick="location.href='./logout.jsp'" />
-	
+						style="width: 35%" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 				</c:if>
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" />
 			</div>
 		</div>
 		

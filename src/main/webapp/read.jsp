@@ -13,111 +13,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/board.js" defer="defer"></script>
+<link rel="stylesheet" href="./css/read.css"/>
 
-<style type="text/css">
-	
-	.container {
-		display: grid;
-	}
-	
-	#div0 {
-		border: 1px solid black;
-		height: 120px;
-		width: 17%;
-		padding: 2px;
-		float: left;
-	}
-	
-	#div1 {
-		border: 1px solid black;
-		height: 120px;
-		width: 65%;
-		background-color: green;
-		padding: 2px;
-		float: left;
-		display: inline-block;
-	}
-	
-	#divA {
-		border: 1px solid black;
-		height: 120px;
-		width: 15%;
-		padding: 2px;
-		display: inline-block;
-	}
-	
-	#nav {
-		border: 1px solid black;
-		width: 97%;
-		height: 3rem;
-	}
-	
-	#div2 {
-		width: 17%;
-		height: 50rem;
-		border: 1px solid black;
-		float: left;
-		position: relative;
-	}
-	
-	#div2_1 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-		margin-bottom: 10px;
-	}
-	
-	#div2_2 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-		margin-bottom: 10px;
-	}
-	
-	#div2_3 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-	}
-	
-	#div3 {
-		width: 65%;
-		float: left;
-		border: 1px solid black;
-	}
-	
-	#table1 {
-		width: 95%;
-		height: 95%;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-	
-	.div3_tr1 {
-		border: 1px solid black;
-		background-color: lavender;
-	}
-	
-	#div4 {
-		width: 15%;
-		height: 50rem;
-		border: 1px solid black;
-		float: left;
-	}
-	
-</style>
 </head>
 <body>
 
@@ -150,7 +47,8 @@
 				</table>
 			</div>
 		</div>
-	<c:set var="mainvo" value="${Mainboard}" />
+		
+		<c:set var="mainvo" value="${Mainboard}" />
 
 		<div class="login" id="divA"
 			style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
@@ -159,7 +57,7 @@
 				<input class="btn btn-primary" type="button" value="login"
 					style="width: 35%" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" />
+					style="width: 50%" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
@@ -368,13 +266,13 @@
 							
 							</c:forEach>
 						</c:if>
-					</div><hr/>
-					<!-- 댓글이 없는 경우 -->
-					<c:if test="${comment.size() == 0}">
-						<div style="background-color: gray; height: 5em;">
-							<marquee><b>댓글이 없습니다</b></marquee>
-						</div>
-					</c:if>
+						<!-- 댓글이 없는 경우 -->
+						<c:if test="${comment.size() == 0}">
+							<div style="background-color: gray; height: 5em;">
+								<marquee><b>댓글이 없습니다</b></marquee>
+							</div>
+						</c:if>
+					</div>
 					<!-- 댓글 입력, 수정, 삭제에 사용 -->
 					<div id="div5_2" style="background-color: orange;">
 					<form method="post" action="commentInsert.jsp" id="commentForm" onsubmit="return commentFormCheck(this)">
