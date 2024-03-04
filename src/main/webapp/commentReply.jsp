@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<!-- 답글 사용 안 할 예정 -->
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -33,7 +35,6 @@
 		vo.setName("reply" + comidx);
 		vo.setContent(content);
 		vo.setGup(voidx);
-		vo.setLev(2);
 		System.out.println("vovo" + vo);
 		MainCommentService.getInstance().reply(vo);
 		

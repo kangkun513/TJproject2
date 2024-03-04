@@ -10,6 +10,7 @@ import com.tjoeun.main.dao.MainDAO;
 import com.tjoeun.main.mybatis.MySession;
 import com.tjoeun.main.vo.MainList;
 import com.tjoeun.main.vo.MainVO;
+import com.tjoeun.main.vo.MemberVO;
 import com.tjoeun.main.vo.Param;
 
 public class MainService {
@@ -190,6 +191,53 @@ public class MainService {
 			e.printStackTrace();
 		}
 		return mainList;
+	}
+	
+	public void write(MainVO vo) {
+		System.out.println("MainService 클래스 write() 실행");
+		SqlSession mapper = MySession.getSession();
+		
+		MainDAO.getInstance().write(mapper,vo);
+		
+		mapper.commit();
+		mapper.close();
+	}
+	
+	public int login(MemberVO vo) {
+		System.out.println("MainService 클래스 login()");
+		SqlSession mapper = MySession.getSession();
+		
+		int loginCheck = MainDAO.getInstance().login(mapper, vo);
+		
+		mapper.commit();
+		mapper.close();
+		
+		return loginCheck;
+	}
+	
+//	비밀번호 찾기
+	public MemberVO search_pw(MemberVO vo) {
+		System.out.println("MainService 클래스 search_pw()");
+		SqlSession mapper = MySession.getSession();
+		
+		MemberVO search_pw = MainDAO.getInstance().search_pw(mapper,vo);
+		
+		mapper.commit();
+		mapper.close();
+		
+		return search_pw;
+	}
+	
+	
+//	비밀번호 찾기
+	public int search_pw_check(MemberVO vo) {
+		System.out.println("MainService 클래스 search_pw_check()");
+		SqlSession mapper = MySession.getSession();
+		
+		int search_pw_check = MainDAO.getInstance().search_pw_check(mapper, vo);
+		
+		return search_pw_check;
+		
 	}
 	
 }

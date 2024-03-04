@@ -4,9 +4,37 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그아웃</title>
 </head>
 <body>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	session.removeAttribute("loginCheck");
+	session.removeAttribute("loginInfoID");
+	session.removeAttribute("loginInfoPW");
+	
+	int backPage = Integer.parseInt(request.getParameter("backPage"));
+
+	out.println("<script>");
+	try {
+		int idx = Integer.parseInt(request.getParameter("idx"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		out.println("location.href='goBack.jsp?backPage=" + backPage + "&idx=" + idx + "&currentPage=" + currentPage + "'");
+	} catch (NumberFormatException e) {
+		
+		out.println("location.href='goBack.jsp?backPage=" + backPage + "'");
+	}
+	out.println(backPage);
+	
+	out.println("</script>");
+	
+	
+%>
+ 
+
 
 </body>
 </html>

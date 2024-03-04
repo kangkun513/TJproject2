@@ -149,19 +149,23 @@
 				</table>
 			</div>
 		</div>
-		<div class="login" id="divA" onclick="location.href='./login.jsp?backPage=3'"
+		<div class="login" id="divA"
 			style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
-			<input class="btn btn-primary" type="button" value="login" style="width: 35%"/></br>
-			<input class="btn btn-dark" type="button" value="register" style="width: 50%"/>	
+			<!-- 로그인한 상태 -->
+			<c:if test="${loginCheck == 1}">
+				${loginInfoID}님 환영합니다
+				<input class="btn btn-primary" type="button" value="logout"
+					style="width: 35%" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+			</c:if>
 		</div>
 	</div>
 	
-	<c:set var="boardvo" value="${Mainboard}" />
+	<c:set var="mainvo" value="${Mainboard}" />
 	
 	<form action="selectByIdx.jsp" method="get">
 	<div>
 	<div style="display: none;">
-		<input name="idx" value="${boardvo.idx}"/>
+		<input name="idx" value="${mainvo.idx}"/>
 		<input name="currentPage" value="${currentPage}"/>
 		<input name="job" value="updateOK"/>
 	</div>
@@ -169,7 +173,7 @@
 		<h4>소설 정보</h4><hr/>
 		<label for="title"><div id="div2_1">
 			소설 제목<br/>
-			<input id="title" name="subject" value="${boardvo.subject}" style="width: 100%;"/></div></label>
+			<input id="title" name="subject" value="${mainvo.subject}" style="width: 100%;"/></div></label>
 		<div id="div2_2">explain 소설설명</div>
 
 		<div id="div2_2" align="center">
@@ -183,7 +187,7 @@
 		<div id="div2_3" align="center">
 			<input class="btn btn-primary btn-sm" type="submit" value="수정 완료"/>
 			<input class="btn btn-secondary btn-sm" type="button" value="수정 취소" 
-				onclick="location.href='selectByIdx.jsp?idx=${boardvo.idx}&currentPage=${currentPage}'"/>
+				onclick="location.href='selectByIdx.jsp?idx=${mainvo.idx}&currentPage=${currentPage}'"/>
 		</div>
 	</div>
 	<div id="div3">
@@ -192,21 +196,21 @@
 			<table style="width: 100%; border: 1px solid black;">
 				<tr style="height: 2em;">
 					<th>글 번호</th>
-					<td name="idx">${boardvo.idx}</td>
+					<td name="idx">${mainvo.idx}</td>
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>글 그룹 번호</th>
-					<td name="gup">${boardvo.gup}</td>
+					<td name="gup">${mainvo.gup}</td>
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>작성자 ID</th>
-					<td name="id">${boardvo.id}</td>
+					<td name="id">${mainvo.id}</td>
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>카테고리</th>
 					<td name="category">
 						<select id="category" name="category" class="form-control" >
-								<option selected="selected">${boardvo.category}</option>
+								<option selected="selected">${mainvo.category}</option>
 								<option>공포</option>
 								<option>스릴러</option>
 								<option>미스테리</option>
@@ -218,30 +222,30 @@
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>조회수</th>
-					<td name="hit">${boardvo.hit}</td>
+					<td name="hit">${mainvo.hit}</td>
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>추천수</th>
-					<td name="good">${boardvo.good}</td>
+					<td name="good">${mainvo.good}</td>
 				</tr>
 				<tr style="height: 2em; border: 1px solid black;">
 					<th>작성 날짜</th>
-					<fmt:formatDate var="Date" value="${boardvo.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
+					<fmt:formatDate var="Date" value="${mainvo.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
 					<td name="writeDate">${Date}</td>
 				</tr>
 				<tr style="border: 1px solid black; height: 100%;">
 					<th><label for="contents">내용</label></th>
 					<td>
 						<textarea class="form-control" id="contents" name="content"
-							style="height: 100%; resize: none;">${boardvo.content}</textarea>
+							style="height: 100%; resize: none;">${mainvo.content}</textarea>
 					</td>
 				</tr>
 			</table>
 	</form>
 				
 			<div id="div5">
-					<div id="div5_1" style="height: 12.5em; background-color: gray;"></div>
-					<div id="div5_2" style="height: 15em; background-color: orange;"></div>
+					<div id="div5_1" style="height: 5em; background-color: gray;"></div>
+					<div id="div5_2" style="height: 10em; background-color: orange;"></div>
 			</div>
 		</div>
 	</div>

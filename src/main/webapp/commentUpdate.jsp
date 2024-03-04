@@ -17,9 +17,10 @@
 
 <%
 	String upcomment = request.getParameter("upcomment");
+	System.out.print(upcomment);
 
 	if(upcomment == null || upcomment.trim().equals("")) {
-		int idx = Integer.parseInt(request.getParameter("idx"));
+		int idx = Integer.parseInt(request.getParameter("voidx"));
 		int comidx = Integer.parseInt(request.getParameter("comidx"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		out.println("<script>");
@@ -27,7 +28,7 @@
 		out.println("location.href='selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage + "'");
 		out.println("</script>");
 	} else {
-		int idx = Integer.parseInt(request.getParameter("idx"));
+		int idx = Integer.parseInt(request.getParameter("voidx"));
 		int comidx = Integer.parseInt(request.getParameter("comidx"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		//	수정할 댓글에 수정하기 위해 원 댓글 내용 얻어옴

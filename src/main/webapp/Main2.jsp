@@ -139,26 +139,14 @@
 
 <div class="head container">
 	<div class="container">
-		<div id="div0">
-			<input type="button" value="Main으로" onclick="location.href='list.jsp'"/>
-		</div>
+		<div id="div0">로고 자리</div>
 
 		<div id="div1" class="text-center">소설 투고 사이트</div>
 
-		<div id="divA">
-			<!-- 로그인하지 않은 상태 -->
-			<c:if test="${loginCheck != 1}">
-				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" />
-			</c:if>
-			<!-- 로그인한 상태 -->
-			<c:if test="${loginCheck == 1}">
-				${loginInfoID}님 환영합니다
-				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
-			</c:if>
+		<div id="divA">로그인 버튼
+			<input type="button" 
+				   value="로그인" 
+				   onclick="location.href='./login.jsp?backPage=1'">
 		</div>
 
 		<div id="nav">메뉴</div>
@@ -172,7 +160,22 @@
 			왼쪽 창
 			<div id="div2_1" >
 				<form action="search.jsp" method="post">
-					<input name="searchVal" type="text" placeholder="제목 or 작가 or 카테고리를 입력" size="18">
+					<select name="searchTag">
+						<option>subject</option>
+						<option>id</option>
+					</select>
+					<select name="category" class="form-control form-control-sm">
+						<option>카테고리 선택</option>
+						<option>공포</option>
+						<option>스릴러</option>
+						<option>미스테리</option>
+						<option>순정</option>
+						<option>코미디</option>
+						<option>역사</option>
+						<option>판타지</option>
+						<option>무협</option>
+					</select>
+					<input name="searchVal" type="text" placeholder="검색어를 입력하세요" size="18">
 					<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" >
 				</form>
 			</div>
@@ -180,30 +183,24 @@
 			<div id="div2_2">세부 카테고리
 					<select id="category" class="form-control form-control-sm">
 						<option>카테고리 선택</option>
-						<option>만화</option>
+						<option>공포</option>
+						<option>스릴러</option>
+						<option>미스테리</option>
+						<option>순정</option>
+						<option>코미디</option>
+						<option>역사</option>
 						<option>판타지</option>
-						<option>미스터리</option>
-						<option>대체 역사</option>
-						<option>게임</option>
-						<option>교육</option>
-						<option>예술</option>
 						<option>무협</option>
 					</select>
 			</div>
 
 			<div id="div2_3">
-				<c:if test="${loginCheck == 1}">
 				<input
 					class="btn btn-outline-primary btm-sm"
 					type="button" 
 					value="글쓰기" 
 					style="font-size: 13px;" 
 					onclick="location.href='write.jsp'"/>
-				</c:if>
-				<c:if test="${loginCheck != 1}">
-					글쓰기<br/>
-					로그인하세요
-				</c:if>
 			</div>
 		</div>
 		

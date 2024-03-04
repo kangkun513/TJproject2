@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.ibatis.session.SqlSession;
 
 import com.tjoeun.main.vo.MainVO;
+import com.tjoeun.main.vo.MemberVO;
 import com.tjoeun.main.vo.Param;
 
 public class MainDAO {
@@ -95,6 +96,34 @@ public class MainDAO {
 	public void good(SqlSession mapper, int idx) {
 		System.out.println("MainDAO 클래스의 good() 메소드 실행");
 		mapper.update("good", idx);
+	}
+	
+//	글 저장
+	public void write(SqlSession mapper, MainVO vo) {
+		System.out.println("MainDAO 클래스 write() 실행");
+		mapper.insert("write", vo);
+	}
+	
+//	로그인	
+	public int login(SqlSession mapper, MemberVO vo) {
+		System.out.println("MainDAO 클래스 login() 실행");
+		int loginCheck = (int) mapper.selectOne("login", vo);
+		System.out.println(loginCheck);
+		return loginCheck;
+	}
+	
+//	비밀번호 찾기
+	public MemberVO search_pw(SqlSession mapper, MemberVO vo) {
+		System.out.println("MainDAO 클래스 search_pw() 실행");
+		MemberVO search_pw =  (MemberVO) mapper.selectOne("search_pw", vo);
+		return search_pw;
+	}
+	
+//	비밀번호 찾기
+	public int search_pw_check(SqlSession mapper, MemberVO vo) {
+		System.out.println("MainDAO 클래스 search_pw_check() 실행");
+		int search_pw_check = (int) mapper.selectOne("search_pw_check", vo);
+		return search_pw_check;
 	}
 
 }

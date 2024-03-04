@@ -43,18 +43,27 @@
 	
 //	검색어가 없는 경우와 검색어가 있는 경우를 각각 메소드로 구현한다.
 	if (searchVal == null || searchVal.trim().length() == 0) {
-		// 검색어가 입력되지 않은 경우
+		// 검색어가 입력되지 않은 경우 => 1 페이지로 돌아감 
 		mainList = MainService.getInstance().selectSearchList(currentPage);
 	} else {
-		// 검색어가 입력된 경우
+		// 검색어가 입력된 경우 위에서 받은 인수로 메소드 실행
 		mainList = MainService.getInstance().selectSearchList(currentPage, searchTag, category, searchVal);
 	}
 
-
-// 찾은 글을 request 영역에 저장해서 메인글을 브라우저에 표시하는 페이지(SearchView.jsp)로 넘겨준다.
-	request.setAttribute("searchList", mainList);
-
-	pageContext.forward("SearchView.jsp");
+	
+//	조회수가 높은 순으로 메인 글을 얻어온다.
+	MainList selectHit = MainService.getInstance().selectHit(); // 조회수 랭킹
+	MainList selectGood = MainService.getInstance().selectGood(); // 추천수 랭킹
+	MainList selectNew = MainService.getInstance().selectNew(); // 신규글 랭킹
+	
+// 찾은 글을 request 영역에 저장해서 메인글을 브라우저에 표시하는 페이지(Main.jsp)로 넘겨준다.
+	request.setAttribute("mainList", mainList);
+	request.setAttribute("currentPage", currentPage);
+	request.setAttribute("selectHit", selectHit);
+	request.setAttribute("selectGood", selectGood);
+	request.setAttribute("selectNew", selectNew);
+	
+	pageContext.forward("Main.jsp");
 	
 %>
 

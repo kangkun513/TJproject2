@@ -4,9 +4,50 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title> 돌아갈 때 쓰는 페이지</title>
 </head>
 <body>
+
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+//	out.println(request.getParameter("backPage")); // ok
+		int backPage = 1;
+		backPage = Integer.parseInt(request.getParameter("backPage"));
+		
+		int idx;
+		int currentPage;
+		try {
+			idx = Integer.parseInt(request.getParameter("idx"));
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
+		} catch (NumberFormatException e) {
+			idx = 1;
+			currentPage = 1;
+		}
+		
+		
+		out.println("<script>");
+
+		switch (backPage) {
+			case 1 : // main.jsp
+				out.println("location.href='./list.jsp'");
+				break;
+			case 2 : // write.jsp
+				out.println("location.href='./write.jsp'");
+				break;
+			case 3 : // read.jsp
+				out.println("location.href='./selectByIdx.jsp?idx=" + idx + "&currentPage=" + currentPage + "'");
+				break;
+			default : // main.jsp
+				out.println("location.href='./list.jsp'");
+				break;
+		}
+		
+		out.println("</script>");
+%>
+
+
 
 </body>
 </html>
