@@ -22,16 +22,18 @@
 <link rel="stylesheet" href="./css/register.css"/>
 </head>
 <body>
-	<div class="container">
+
+<div class="container">
+	
+	<div>
 		<div id="div0">
 			<a href="list.jsp">
-				<img src="./images/clock.png" alt="이미지 없음" width="100px"
-					style="margin-left: 10px" />
+				<img src="./images/clock.png" alt="이미지 없음" width="100px"/>
 			</a>
 		</div>
 
 		<div>
-			<div id="div1" style="padding-left: 10em">
+			<div id="div1">
 				<table>
 					<tr>
 						<td style="border: 1px solid black; width: 10em; height: 2em;">
@@ -46,7 +48,7 @@
 						<td style="border: 1px solid black;">2-3</td>
 					</tr>
 					<tr>
-						<td style="border: 1px solid black; height: 3em;">3</td>
+						<td style="border: 1px solid black; height: 2em;">3</td>
 						<td style="border: 1px solid black;">3-1</td>
 						<td style="border: 1px solid black;">3-2</td>
 						<td style="border: 1px solid black;">3-3</td>
@@ -55,23 +57,22 @@
 			</div>
 		</div>
 
-		<div id="divA"
-			style="text-align: right; padding-top: 10px; padding-right: 15px">
+		<div id="divA">
 			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
-				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=1'" />
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" onclick="location.href='./register.jsp'"/>
+				<input class="btn btn-primary" type="button" value="Login"
+					style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="Register"
+					style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1'" />
+					style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
 			</c:if>
 		</div>
-
+	</div>
 
 		<div id="div3">
 			div3
@@ -95,7 +96,8 @@
 						type="text" 
 						name="id" 
 						placeholder="아이디를 입력하세요" 
-						autocomplete="off"/>
+						autocomplete="off"
+						maxlength="20"/>
 				</td>
 			</tr>
 			<tr>
@@ -109,7 +111,8 @@
 						type="password" 
 						name="pw" 
 						placeholder="비밀번호를 입력하세요" 
-						autocomplete="off" 
+						autocomplete="off"
+						maxlength="20"
 						onkeyup="passwordCheckFunction()"/>
 				</td>
 			</tr>
@@ -124,7 +127,8 @@
 						type="password" 
 						name="pw2" 
 						placeholder="비밀번호를 다시 한 번 입력하세요" 
-						autocomplete="off" 
+						autocomplete="off"
+						maxlength="20"
 						onkeyup="passwordCheckFunction()"/>
 				</td>
 			</tr>
@@ -139,6 +143,7 @@
 						type="text" 
 						name="name" 
 						placeholder="이름을 입력하세요" 
+						maxlength="20"
 						autocomplete="off"/>
 				</td>
 			</tr>
@@ -153,6 +158,7 @@
 						type="text" 
 						name="nick" 
 						placeholder="닉네임을 입력하세요" 
+						maxlength="20"
 						autocomplete="off"/>
 				</td>
 			</tr>
@@ -167,6 +173,7 @@
 						type="email" 
 						name="email" 
 						placeholder="이메일을 입력하세요" 
+						maxlength="100"
 						autocomplete="off"/>
 				</td>
 			</tr>

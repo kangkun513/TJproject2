@@ -85,10 +85,7 @@
 	
 	<!-- 제목에 검색어를 포함하는 글의 개수를 얻어온다.-->
 	<select id="selectCountMulti" parameterType="param" resultType="int">
-		select count(*) from main 
-			where subject like '%'||#{searchVal}||'%' 
-			or id like '%'||#{searchVal}||'%'
-			or category like '%'||#{searchVal}||'%'
+		select count(*) from (select * from main where category = #{category} ) where subject like '%'||#{searchVal}||'%'
 	</select>
 	
 	<!-- 제목에 검색어를 포함하는 페이지 분량의 글 목록을 얻어온다.-->
@@ -96,10 +93,23 @@
 		<![CDATA[
 			select * from ( 
 				select rownum rnum, AA.* from (
-					select * from main 
-					where subject like '%'||#{searchVal}||'%'
-					or id like '%'||#{searchVal}||'%'
-					or category like '%'||#{searchVal}||'%'
+					select * from (select * from main where category = #{category} ) where subject like '%'||#{searchVal}||'%' order by idx desc
+				) AA where rownum <= #{endNo}
+			) where rnum >= #{startNo}
+		]]>
+    </select>
+    
+    <!-- if searchTag = id -> count -->
+    <select id="selectCount1" parameterType="param" resultType="int">
+    	select count(*) from (select * from main where category = #{category} ) where id like '%'||#{searchVal}||'%'
+    </select>
+    
+    <!-- if searchTag = id -> list -->
+    <select id="selectList1" parameterType="param" resultType="vo">
+		<![CDATA[
+			select * from ( 
+				select rownum rnum, AA.* from (
+					select * from (select * from main where category = #{category} ) where id like '%'||#{searchVal}||'%' order by idx desc
 				) AA where rownum <= #{endNo}
 			) where rnum >= #{startNo}
 		]]>

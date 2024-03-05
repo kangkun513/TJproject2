@@ -22,16 +22,31 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/mainjs.js"></script>
-<link rel="stylesheet" href="./css/login.css"/>
+<link rel="stylesheet" href="./css/main.css"/>
 </head>
 <body>
 	
-	<div class="container">
+<%
+	int idx;
+	try {
+		idx = Integer.parseInt(request.getParameter("idx"));
+	} catch (NumberFormatException e) {
+		idx = 1;
+	}
+	
+	int currentPage;
+	try {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	} catch (NumberFormatException e) {
+		currentPage = 1;
+	}
+%>
+<div class="container">
+
 		<div>
 			<div id="div0" style="background-color: purple;">
-				<a href="./list.jsp">
-						<img src="./images/clock.png" alt="이미지 없음" width="100px"
-							style="margin-left: 10px" />
+				<a href="list.jsp?currentPage=<%=currentPage %>">
+				<img src="./images/clock.png" alt="이미지 없음" width="100px"/>
 				</a>
 			</div>
 			<div>
@@ -61,20 +76,19 @@
 			
 			<c:set var="mainvo" value="${Mainboard}" />
 	
-			<div class="login" id="divA"
-				style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
+			<div id="divA">
 				<!-- 로그인하지 않은 상태 -->
 				<c:if test="${loginCheck != 1}">
-					<input class="btn btn-primary" type="button" value="login"
-						style="width: 35%" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
-					<input class="btn btn-dark" type="button" value="register"
-						style="width: 50%" onclick="location.href='./register.jsp'"/>
+					<input class="btn btn-primary" type="button" value="Login"
+						style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+					<input class="btn btn-dark" type="button" value="Register"
+						style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
 				</c:if>
 				<!-- 로그인한 상태 -->
 				<c:if test="${loginCheck == 1}">
 					${loginInfoID}님 환영합니다
 					<input class="btn btn-primary" type="button" value="logout"
-						style="width: 35%" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+						style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
 				</c:if>
 			</div>
 		</div>
@@ -82,7 +96,7 @@
 		<div>
 		<div id="div2">
 			div2
-		<div id="div2_1">subject</div>
+		<div id="div2_1"></div>
 			<form action="#" method="post">
 				<div id="div2_3" align="center">
 					<input name="search_category" class="category" type="radio"
@@ -113,18 +127,9 @@
 									class="icon d-flex align-items-center justify-content-center">
 									<span class="fa fa-user-o"></span>
 								</div>
-								<%
-									int idx;
-									int currentPage;
-									try {
-										idx = Integer.parseInt(request.getParameter("idx"));
-										currentPage = Integer.parseInt(request.getParameter("currentPage"));
-									} catch (NumberFormatException e) {
-										idx = 1;
-										currentPage = 1;
-									}
-								%>
+								
 								<h3 class="text-center mb-4">Sign In</h3>
+								
 								<form action="loginOK.jsp?backPage=${param.backPage}&idx=<%=idx %>&currentPage=<%=currentPage %>" id="loginWindow" class="login-form"
 									method="post">
 									<div class="form-group">
@@ -151,7 +156,7 @@
 										</div>
 									</div>
 								</form>
-								<!-- -->
+								
 							</div>
 						</td>
 					</tr>

@@ -6,13 +6,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+
+	request.setCharacterEncoding("UTF-8");
+
     // 데이터베이스 연결
     Connection conn = null;
     PreparedStatement pstmt = null;
     try {
         Class.forName("oracle.jdbc.driver.OracleDriver");                 
-        String url = "jdbc:oracle:thin:@localhost:1521:xe";                    
-        conn = DriverManager.getConnection(url, "tjoeunit", "0000");              
+        String url = "jdbc:oracle:thin:@localhost:1522:xe";                    
+        conn = DriverManager.getConnection(url, "admin", "1234");              
         
         // 입력된 회원 정보를 가져옴
         String id = request.getParameter("id");

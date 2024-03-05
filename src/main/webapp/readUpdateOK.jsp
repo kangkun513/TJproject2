@@ -13,117 +13,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/board.js" defer="defer"></script>
-<style type="text/css">
-	
-	.container {
-		display: grid;
-	}
-	
-	#div0 {
-		border: 1px solid black;
-		height: 120px;
-		width: 17%;
-		padding: 2px;
-		float: left;
-	}
-	
-	#div1 {
-		border: 1px solid black;
-		height: 120px;
-		width: 65%;
-		background-color: green;
-		padding: 2px;
-		float: left;
-		display: inline-block;
-	}
-	
-	#divA {
-		border: 1px solid black;
-		height: 120px;
-		width: 15%;
-		padding: 2px;
-		display: inline-block;
-	}
-	
-	#nav {
-		border: 1px solid black;
-		width: 97%;
-		height: 3rem;
-	}
-	
-	#div2 {
-		width: 17%;
-		height: 50rem;
-		border: 1px solid black;
-		float: left;
-		position: relative;
-	}
-	
-	#div2_1 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-		margin-bottom: 10px;
-	}
-	
-	#div2_2 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-		margin-bottom: 10px;
-	}
-	
-	#div2_3 {
-		width: 85%;
-		height: 100px;
-		border: 2px solid black;
-		background-color: lavender;
-		display: inline-block;
-		float: left;
-		margin-left: 12px;
-	}
-	
-	#div3 {
-		width: 65%;
-		float: left;
-		border: 1px solid black;
-	}
-	
-	#table1 {
-		width: 95%;
-		height: 95%;
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-	
-	.div3_tr1 {
-		border: 1px solid black;
-		background-color: lavender;
-	}
-	
-	#div4 {
-		width: 15%;
-		height: 50rem;
-		border: 1px solid black;
-		float: left;
-	}
-	
-</style>
+<link rel="stylesheet" href="./css/read.css"/>
+
 </head>
 <body>
 
+<c:set var="mainvo" value="${Mainboard}" />
 <div class="container">
 	<div>
-		<div id="div0" style="background-color: purple;">로고
-			<input type="button" value="Main으로" onclick="location.href='list.jsp'"/>
+		<div id="div0" style="background-color: purple;">
+			<input class="btn btn-light" type="button" value="Main으로" onclick="location.href='list.jsp'"
+				style="width: 100%; height: 100%;"/>
 		</div>
 		<div>
 			<div id="div1">
@@ -141,7 +41,7 @@
 						<td style="border: 1px solid black;">2-3</td>
 					</tr>
 					<tr>
-						<td style="border: 1px solid black; height: 3em;">3</td>
+						<td style="border: 1px solid black; height: 2em;">3</td>
 						<td style="border: 1px solid black;">3-1</td>
 						<td style="border: 1px solid black;">3-2</td>
 						<td style="border: 1px solid black;">3-3</td>
@@ -151,19 +51,23 @@
 		</div>
 		<div class="login" id="divA"
 			style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
+			<!-- 로그인하지 않은 상태 -->
+			<c:if test="${loginCheck != 1}">
+				<input class="btn btn-primary" type="button" value="Login"
+					style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="Register"
+					style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
+			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 			</c:if>
 		</div>
 	</div>
 	
-	<c:set var="mainvo" value="${Mainboard}" />
-	
 	<form action="selectByIdx.jsp" method="get">
-	<div>
 	<div style="display: none;">
 		<input name="idx" value="${mainvo.idx}"/>
 		<input name="currentPage" value="${currentPage}"/>
@@ -171,9 +75,12 @@
 	</div>
 	<div id="div2" class="left" style="position: sticky; top:0rem; background-color: tomato;">
 		<h4>소설 정보</h4><hr/>
-		<label for="title"><div id="div2_1">
-			소설 제목<br/>
-			<input id="title" name="subject" value="${mainvo.subject}" style="width: 100%;"/></div></label>
+		<div id="div2_1">
+			<label for="title">
+				소설 제목<br/>
+				<input id="title" maxlength="100" name="subject" value="${mainvo.subject}" style="width: 100%;"/>
+			</label>
+		</div>
 		<div id="div2_2">explain 소설설명</div>
 
 		<div id="div2_2" align="center">
@@ -193,20 +100,21 @@
 	<div id="div3">
 		<div class="center" style="background-color: silver">
 			<h4>소설 내용</h4><hr/>
-			<table style="width: 100%; border: 1px solid black;">
+			<table style="width: 100%; 
+				border-top: 1px solid black;">
 				<tr style="height: 2em;">
 					<th>글 번호</th>
 					<td name="idx">${mainvo.idx}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>글 그룹 번호</th>
 					<td name="gup">${mainvo.gup}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>작성자 ID</th>
 					<td name="id">${mainvo.id}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>카테고리</th>
 					<td name="category">
 						<select id="category" name="category" class="form-control" >
@@ -220,35 +128,36 @@
 						</select>
 					</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>조회수</th>
 					<td name="hit">${mainvo.hit}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>추천수</th>
 					<td name="good">${mainvo.good}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em; border-top: 1px solid black;">
 					<th>작성 날짜</th>
 					<fmt:formatDate var="Date" value="${mainvo.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
 					<td name="writeDate">${Date}</td>
 				</tr>
-				<tr style="border: 1px solid black; height: 100%;">
+				<tr style="border-top: 1px solid black;">
 					<th><label for="contents">내용</label></th>
 					<td>
-						<textarea class="form-control" id="contents" name="content"
-							style="height: 100%; resize: none;">${mainvo.content}</textarea>
+						<textarea class="form-control" id="contents" name="content" maxlength="2000"
+							style="height: 6.5em; resize: none;">${mainvo.content}</textarea>
 					</td>
 				</tr>
 			</table>
-	</form>
 				
 			<div id="div5">
-					<div id="div5_1" style="height: 5em; background-color: gray;"></div>
-					<div id="div5_2" style="height: 10em; background-color: orange;"></div>
+					<div id="div5_1" style="height: 13em; background-color: gray;"></div>
+					<div id="div5_2" style="height: 12em; background-color: orange;"></div>
 			</div>
 		</div>
 	</div>
+	
+	
 	<div id="div4" class="right" style="position: sticky; top:0rem; background-color: skyblue;">
 		<h4>추천 소설 목록</h4><hr/>
 		조회수 높은 소설 목록<br/>
@@ -256,11 +165,19 @@
 			<c:set var="list" value="${selectHit.list}" />
 			<c:forEach var="vo" items="${list}">
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${vo.getHit()})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+							${vo.getSubject()}(${vo.getHit()})</a>
+						</div>
+					</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+					<li>
+						<div class="rankHyper">
+							<a href="">삭제된 글입니다</a>
+						</div>
+					</li>
 				</c:if>
 			</c:forEach>
 		</ol><hr/>
@@ -269,11 +186,19 @@
 			<c:set var="list" value="${selectGood.list}" />
 			<c:forEach var="vo" items="${list}">
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${vo.getGood()})</a></li>
+				<li>
+					<div class="rankHyper">
+						<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+						${vo.getSubject()}(${vo.getGood()})</a>
+					</div>
+				</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+				<li>
+					<div class="rankHyper">
+						<a href="">삭제된 글입니다</a>
+					</div>
+				</li>
 				</c:if>
 			</c:forEach>
 		</ol><hr/>
@@ -283,16 +208,24 @@
 			<c:forEach var="vo" items="${list}">
 				<fmt:formatDate var="writeDate" value="${vo.getWriteDate()}" pattern="MM/dd HH:mm:ss"/>
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${writeDate})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+							${vo.getSubject()}</a>
+						</div>
+					</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+					<li>
+						<div class="rankHyper">
+							<a href="">삭제된 글입니다</a>
+						</div>
+					</li>
 				</c:if>
 			</c:forEach>
-		</ol><hr/>
+		</ol>
 	</div>
-	</div>
+	</form>
 	
 </div>
 </body>

@@ -18,11 +18,15 @@
 </head>
 <body>
 
+<c:set var="mainvo" value="${Mainboard}" />
 <div class="container">
+
 	<div>
-		<div id="div0" style="background-color: purple;">로고
-			<input type="button" value="Main으로" onclick="location.href='list.jsp'"/>
+		<div id="div0" style="background-color: purple;">
+			<input class="btn btn-light" type="button" value="Main으로" onclick="location.href='list.jsp'"
+				style="width: 100%; height: 100%;"/>
 		</div>
+		
 		<div>
 			<div id="div1">
 				<table>
@@ -39,7 +43,7 @@
 						<td style="border: 1px solid black;">2-3</td>
 					</tr>
 					<tr>
-						<td style="border: 1px solid black; height: 3em;">3</td>
+						<td style="border: 1px solid black; height: 2em;">3</td>
 						<td style="border: 1px solid black;">3-1</td>
 						<td style="border: 1px solid black;">3-2</td>
 						<td style="border: 1px solid black;">3-3</td>
@@ -48,26 +52,24 @@
 			</div>
 		</div>
 		
-		<c:set var="mainvo" value="${Mainboard}" />
 
-		<div class="login" id="divA"
-			style="background-color: yellow; text-align: right; padding-top: 20px; padding-right: 20px">
+		<div class="login" id="divA" style="background-color: yellow;">
 			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
-				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" onclick="location.href='./register.jsp'"/>
+				<input class="btn btn-primary" type="button" value="Login"
+					style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="Register"
+					style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=3&idx=${mainvo.idx}&currentPage=${currentPage}'" />
 			</c:if>
 		</div>
 	</div>
-	
+
 	<div>
 	<div id="div2" class="left" style="position: sticky; top:0rem; background-color: tomato;">
 		<h4>소설 정보</h4><hr/>
@@ -76,10 +78,12 @@
 			<c:if test="${mainvo.deleted == 'no'}">
 				<c:set var="subject" value="${fn:replace(mainvo.subject, '<', '&lt;')}"/>
 				<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
-				<b>${subject}</b>
+				<div class="subjectText">
+					<strong>${subject}</strong>
+				</div>
 			</c:if>
 			<c:if test="${mainvo.deleted == 'yes'}">
-				<b>삭제된 글입니다</b>
+				<strong>삭제된 글입니다</strong>
 			</c:if>
 		</div>
 
@@ -123,7 +127,7 @@
 			<c:if test="${loginCheck == 1}">
 				<!-- 게시글 아이디와 회원의 아이디가 다를 때 -->
 				<c:if test="${mainvo.id != loginInfoID}">
-					<input class="btn btn-info btn-lg" value="추천"/ style="height: 100%; width: 100%"
+					<input class="btn btn-info btn-lg" value="추천" style="height: 100%; width: 100%"
 						onclick="location.href='selectByIdx.jsp?idx=${mainvo.idx}&currentPage=${currentPage}&job=good'"/>
 				</c:if>
 				<!-- 게시글 아이디와 회원의 아이디가 같을 때 -->
@@ -141,48 +145,50 @@
 	</div>
 	<div id="div3">
 		<div class="center" style="background-color: silver">
-			<h4>소설 내용</h4><hr/>
-			<table style="width: 100%; border: 1px solid black;">
+			<h4 align="center">소설 내용</h4><hr/>
+			<table style="width: 95%;">
 				<tr style="height: 2em;">
 					<th>글 번호</th>
-					<td name="idx">${mainvo.idx}</td>
+					<td>${mainvo.idx}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>글 그룹 번호</th>
-					<td name="gup">${mainvo.gup}</td>
+					<td>${mainvo.gup}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>작성자 ID</th>
-					<td name="id">${mainvo.id}</td>
+					<td>${mainvo.id}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>카테고리</th>
-					<td name="category">${mainvo.category}</td>
+					<td>${mainvo.category}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>조회수</th>
-					<td name="hit">${mainvo.hit}</td>
+					<td>${mainvo.hit}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>추천수</th>
-					<td name="good">${mainvo.good}</td>
+					<td>${mainvo.good}</td>
 				</tr>
-				<tr style="height: 2em; border: 1px solid black;">
+				<tr style="height: 2em;">
 					<th>작성 날짜</th>
 					<fmt:formatDate var="Date" value="${mainvo.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
-					<td name="writeDate">${Date}</td>
+					<td>${Date}</td>
 				</tr>
-				<tr style="border: 1px solid black;">
-					<th>내용</th>
+				<tr>
+					<th valign="top">내용</th>
 				
 					<c:if test="${mainvo.deleted == 'no'}">
 						<c:set var="content" value="${fn:replace(mainvo.content, '<', '&lt;')}"/>
 						<c:set var="content" value="${fn:replace(content, '>', '&gt;')}"/>
 						<c:set var="content" value="${fn:replace(content, enter, '<br/>')}"/>
-						<td name="content">${content}</td>
+						<td class="contentText">
+							${content}
+						</td>
 					</c:if>
 					<c:if test="${mainvo.deleted == 'yes'}">
-						<td name="content">삭제된 글입니다</td>
+						<td>삭제된 글입니다</td>
 					</c:if>
 				</tr>
 			</table>
@@ -216,7 +222,7 @@
 								<!-- 삭제된 댓글이 아닐 경우 표시 -->
 								<c:if test="${co.deleted != 'yes'}">
 									<div>
-										<div>${content}</div><br/>
+										<div class="commentText">${content}</div><br/>
 										${name}님이 ${codate}에 작성<br/>
 										<!-- 댓글 아이디와 회원 아이디가 같을 경우 -->
 										<c:if test="${name == loginInfoID}">
@@ -227,7 +233,7 @@
 											<input class="btn btn-warning btn-sm" type="button" value="답글 달기" onclick="setting(${co.idx}, 2)"/><br/>
 											
 											<form action="commentUpdate.jsp" name="${updateForm}" method="post" id="${updateForm}" style="display: none;">
-											<textarea class="form-control form-control-sm" type="text" name="upcomment" rows="4"
+											<textarea class="form-control form-control-sm" maxlength="2000" name="upcomment" rows="4"
 												style="width: 50%; resize: none; display: inline-block;"></textarea>
 											<div style="display: inline-block;">
 												<input class="btn btn-primary btn-sm" type="submit" value="댓글 수정"/><br/>
@@ -242,7 +248,7 @@
 											</form>
 											
 											<form action="#" name="${replyForm}" method="post" id="${replyForm}" style="display: none;">
-											<textarea class="form-control form-control-sm" type="text" name="content" rows="4"
+											<textarea class="form-control form-control-sm" name="content" rows="4"
 												style="width: 50%; resize: none; display: inline-block;"></textarea>
 											<div style="display: inline-block;">
 												<input class="btn btn-warning btn-sm" type="submit" value="답글 달기"/><br/>
@@ -259,6 +265,7 @@
 										
 									</div><hr/>
 								</c:if>
+								
 								<!-- 삭제된 댓글일 경우 표시 -->
 								<c:if test="${co.deleted == 'yes'}">
 									<div>삭제된 댓글입니다</div><hr/>
@@ -268,7 +275,7 @@
 						</c:if>
 						<!-- 댓글이 없는 경우 -->
 						<c:if test="${comment.size() == 0}">
-							<div style="background-color: gray; height: 5em;">
+							<div style="background-color: gray; height: 13em;">
 								<marquee><b>댓글이 없습니다</b></marquee>
 							</div>
 						</c:if>
@@ -284,7 +291,8 @@
 										<label for="commentcontent">내용</label>
 									</th>
 									<td colspan="4" style="width: 600px;">
-									<textarea class="form-control form-control-sm" id="commentcontent" rows="4" name="content" style="resize: none;"></textarea>
+									<textarea class="form-control form-control-sm" id="commentcontent" maxlength="1000"
+										rows="4" name="content" style="resize: none;"></textarea>
 									</td>
 								</tr>
 								
@@ -300,37 +308,41 @@
 								<div style="height: 10em">로그인하세요</div>
 							</c:if>
 							<!-- 화면에 보이면 안되는 부분 -->
-							<table align="center" hidden="hidden">
-								<tr>
-									<td>
-										<!-- 작성할 댓글의 글번호 -->
-										idx: <input type="text" name="idx" value="${mainvo.idx}" size="1" readonly="readonly"/>
-										<!-- 현재 댓글이 어떤 메인글의 댓글인가 -->
-										gup: <input type="text" name="gup" value="${mainvo.idx}" size="1" readonly="readonly"/>
-										<!-- 메인글이 표시되던 페이지 번호 -->
-										currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1" readonly="readonly"/>
-										<!-- 해당 댓글을 작성하는 회원의 아이디 -->
-										name: <input type="text" name="name" value="${loginInfoID}" readonly="readonly"/>
-									</td>
-								</tr>
-							</table>
+							<div hidden="hidden">
+								<!-- 작성할 댓글의 글번호 -->
+								idx: <input type="text" name="idx" value="${mainvo.idx}" size="1" readonly="readonly"/>
+								<!-- 현재 댓글이 어떤 메인글의 댓글인가 -->
+								gup: <input type="text" name="gup" value="${mainvo.idx}" size="1" readonly="readonly"/>
+								<!-- 메인글이 표시되던 페이지 번호 -->
+								currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1" readonly="readonly"/>
+								<!-- 해당 댓글을 작성하는 회원의 아이디 -->
+								name: <input type="text" name="name" value="${loginInfoID}" readonly="readonly"/>
+							</div>
 						</form>
 					</div>
 				</div>
 		</div>
 	</div>
 	<div id="div4" class="right" style="position: sticky; top:0rem; background-color: skyblue;">
-		<h4>추천 소설 목록</h4><hr/>
+		<h4 align="center">추천 소설 목록</h4><hr/>
 		조회수 높은 소설 목록<br/>
 		<ol>
 			<c:set var="list" value="${selectHit.list}" />
 			<c:forEach var="vo" items="${list}">
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${vo.getHit()})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+							${vo.getSubject()}(${vo.getHit()})</a>
+						</div>
+					</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+					<li>
+						<div class="rankHyper">
+							<a href="">삭제된 글입니다</a>
+						</div>
+					</li>
 				</c:if>
 			</c:forEach>
 		</ol><hr/>
@@ -339,11 +351,19 @@
 			<c:set var="list" value="${selectGood.list}" />
 			<c:forEach var="vo" items="${list}">
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${vo.getGood()})</a></li>
+				<li>
+					<div class="rankHyper">
+						<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+						${vo.getSubject()}(${vo.getGood()})</a>
+					</div>
+				</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+				<li>
+					<div class="rankHyper">
+						<a href="">삭제된 글입니다</a>
+					</div>
+				</li>
 				</c:if>
 			</c:forEach>
 		</ol><hr/>
@@ -353,14 +373,22 @@
 			<c:forEach var="vo" items="${list}">
 				<fmt:formatDate var="writeDate" value="${vo.getWriteDate()}" pattern="MM/dd HH:mm:ss"/>
 				<c:if test="${vo.deleted == 'no'}">
-				<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-				${vo.getSubject()}(${writeDate})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+							${vo.getSubject()}</a>
+						</div>
+					</li>
 				</c:if>
 				<c:if test="${vo.deleted == 'yes'}">
-				<li><a href="">삭제된 글입니다</a></li>
+					<li>
+						<div class="rankHyper">
+							<a href="">삭제된 글입니다</a>
+						</div>
+					</li>
 				</c:if>
 			</c:forEach>
-		</ol><hr/>
+		</ol>
 	</div>
 	</div>
 	

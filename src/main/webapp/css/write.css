@@ -15,6 +15,7 @@
 			background-color: green;
 			padding: 2px;
 			display: inline-block;
+			float: left;
 		}
 		
 		#divA {
@@ -27,6 +28,7 @@
 			width: 15%;
 			padding: 2px;
 			display: inline-block;
+			position : relative;
 		}
 		
 		#div2 {

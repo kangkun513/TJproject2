@@ -14,15 +14,23 @@
 	
 //	out.println(request.getParameter("backPage")); // ok
 		int backPage = 1;
-		backPage = Integer.parseInt(request.getParameter("backPage"));
+		try {
+			backPage = Integer.parseInt(request.getParameter("backPage"));
+		} catch (NumberFormatException e) {
+			backPage = 1;
+		}
 		
 		int idx;
-		int currentPage;
 		try {
 			idx = Integer.parseInt(request.getParameter("idx"));
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
 		} catch (NumberFormatException e) {
 			idx = 1;
+		}
+		
+		int currentPage;
+		try {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));			
+		} catch (NumberFormatException e) {
 			currentPage = 1;
 		}
 		

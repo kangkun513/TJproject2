@@ -21,10 +21,12 @@
 </head>
 <body>
 
-<div class="head container">
-	<div class="container">
+<div class="container">
+
+	<div>
 		<div id="div0">
-			<input type="button" value="Main으로" onclick="location.href='list.jsp'"/>
+			<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list.jsp'"
+				style="width: 100%; height: 100%;"/>
 		</div>
 
 		<div id="div1" class="text-center">소설 투고 사이트</div>
@@ -32,62 +34,71 @@
 		<div id="divA">
 			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
-				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" onclick="location.href='./register.jsp'"/>
+				<input class="btn btn-primary" type="button" value="Login"
+					style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="Register"
+					style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1&idx=${mainvo.idx}&currentPage=${currentPage}'" />
+					style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
 			</c:if>
 		</div>
 
-		<div id="nav">메뉴</div>
 	</div>
-</div>	
 
-<div class="body container">
-	<div class="row">
+	<div>
 		<!-- 세부 카테고리 -->
 		<div id="div2">
 			왼쪽 창
-			<div id="div2_1" >
+			<div id="div2_1">검색</div>
+
+			<div id="div2_2">카테고리 검색
+				<select id="category" class="form-control form-control-sm">
+					<option value="카테고리 선택">카테고리 선택</option>
+					<option value="공포">공포</option>
+					<option value="스릴러">스릴러</option>
+					<option value="미스터리">미스터리</option>
+					<option value="순정">순정</option>
+					<option value="코미디">코미디</option>
+					<option value="역사">역사</option>
+					<option value="판타지">판타지</option>
+					<option value="무협">무협</option>
+				</select>
+			</div>
+			
+			<div id="div2_4">
+				세부 검색
 				<form action="search.jsp" method="post">
-					<input name="searchVal" type="text" placeholder="제목 or 작가 or 카테고리를 입력" size="18">
-					<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" >
+					<select name="searchTag" class="form-control form-control-sm">
+						<option value="subject">subject</option>
+						<option value="id">id</option>
+					</select>
+					<select name="category" class="form-control form-control-sm">
+						<option value="카테고리 선택">카테고리 선택</option>
+						<option value="공포">공포</option>
+						<option value="스릴러">스릴러</option>
+						<option value="미스터리">미스터리</option>
+						<option value="순정">순정</option>
+						<option value="코미디">코미디</option>
+						<option value="역사">역사</option>
+						<option value="판타지">판타지</option>
+						<option value="무협">무협</option>
+					</select>
+					<input name="searchVal" type="text" placeholder="검색어를 입력하세요" size="10%"/>
+					<input type="submit" class="btn btn-outline-primary btm-sm" value="검색"/>
 				</form>
 			</div>
 
-			<div id="div2_2">세부 카테고리
-					<select id="category" class="form-control form-control-sm">
-						<option>카테고리 선택</option>
-						<option>만화</option>
-						<option>판타지</option>
-						<option>미스터리</option>
-						<option>대체 역사</option>
-						<option>게임</option>
-						<option>교육</option>
-						<option>예술</option>
-						<option>무협</option>
-					</select>
-			</div>
-
 			<div id="div2_3">
-				<c:if test="${loginCheck == 1}">
 				<input
 					class="btn btn-outline-primary btm-sm"
 					type="button" 
 					value="글쓰기" 
-					style="font-size: 13px;" 
-					onclick="location.href='write.jsp'"/>
-				</c:if>
-				<c:if test="${loginCheck != 1}">
-					글쓰기<br/>
-					로그인하세요
-				</c:if>
+					style="width: 75%; height: 75%;"
+					onclick="location.href='write.jsp?currentPage=${currentPage}'"/>
 			</div>
 		</div>
 		
@@ -128,13 +139,22 @@
 					<tr>
 						<!-- 번호 -->
 						<td class="align-middle text-center">${vo.idx}</td>
-						<!-- 제목에 태그를 적용하지 못하게 한다. -->
 						<td class="align-middle text-center">
-							<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
-							<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
-							<a href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-								${subject}
-							</a>
+							<!-- 삭제된 글일 경우 -->
+							<c:if test="${vo.deleted == 'yes'}">
+								삭제된 글입니다
+							</c:if>
+							<!-- 삭제되지 않은 글일 경우 -->
+							<c:if test="${vo.deleted != 'yes'}">
+								<!-- 제목에 태그를 적용하지 못하게 한다. -->
+								<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+								<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
+								<div class="boardHyper">
+									<a style="width: 100%;" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+										${subject}
+									</a>
+								</div>
+							</c:if>
 						</td>
 						
 						<!-- 카테고리 -->
@@ -147,111 +167,19 @@
 							${vo.id}
 						</td>
 						<!-- 조회수-->
-						<td class="align-middle text-center">${vo.hit}</td>	
+						<td class="align-middle text-center">
+						<!-- 삭제된 글일 경우 -->
+							<c:if test="${vo.deleted == 'yes'}">
+								-
+							</c:if>
+							<!-- 삭제되지 않은 글일 경우 -->
+							<c:if test="${vo.deleted != 'yes'}">
+								${vo.hit}
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 				</c:if>
-				<!-- 소설 목록 페이지 이동 버튼 -->
-				<tr>
-					<td class="align-middle text-center" colspan="5">
-						<!-- 처음으로 -->
-						<c:if test="${mainList.currentPage > 1}"> 
-							<button 
-								class="button button1"
-								type="button"
-								title="첫 페이지로 이동합니다."
-								onclick="location.href='?currentPage=1'"
-							>처음</button>
-						</c:if>
-						
-						<c:if test="${mainList.currentPage <= 1}">
-							<button 
-								class="button button2"
-								type="button"
-								title="이미 첫 페이지 입니다."
-								disabled="disabled"
-							>처음</button>
-						</c:if>
-						
-						<!-- 10페이지 앞으로 -->
-						<c:if test="${mainList.startPage > 1}">
-							<button 
-								class="button button1" 
-								type="button" 
-								title="이전 10 페이지로 이동합니다." 
-								onclick="location.href='?currentPage=${mainList.startPage - 1}'"
-							>이전</button>
-						</c:if>
-						
-						<c:if test="${mainList.startPage <= 1}">
-							<button 
-								class="button button2" 
-								type="button" 
-								disabled="disabled" 
-								title="이미 첫 10 페이지 입니다."
-							>이전</button>
-						</c:if>
-						
-						<!-- 페이지 이동 버튼 -->
-						<c:forEach var="i" begin="${mainList.startPage}" end="${mainList.endPage}" step="1">
-				
-							<c:if test="${mainList.currentPage == i}">
-								<button 
-									class="button button2" 
-									type="button" 
-									disabled="disabled"
-								>${i}</button>
-							</c:if>
-							
-							<c:if test="${mainList.currentPage != i}">
-								<button 
-									class="button button1" 
-									type="button" 
-									onclick="location.href='?currentPage=${i}'"
-								>${i}</button>
-							</c:if>
-						</c:forEach>
-						
-						<!-- 10페이지 뒤로 -->
-						<c:if test="${mainList.endPage < mainList.totalPage}">
-							<button 
-								class="button button1" 
-								type="button" 
-								title="다음 10 페이지로 이동합니다." 
-								onclick="location.href='?currentPage=${mainList.endPage + 1}'"
-							>다음</button>
-						</c:if>
-						
-						<c:if test="${mainList.endPage >= mainList.totalPage}">
-							<button 
-								class="button button2" 
-								type="button" 
-								disabled="disabled" 
-								title="이미 마지막 10 페이지 입니다."
-							>다음</button>
-						</c:if>
-						
-						<!-- 마지막으로 -->
-						<c:if test="${mainList.currentPage < mainList.totalPage}">
-							<button 
-								class="button button1" 
-								type="button" 
-								title="마지막 페이지로 이동합니다." 
-								onclick="location.href='?currentPage=${mainList.totalPage}'"
-							>마지막</button>
-						</c:if>
-			
-						<c:if test="${mainList.currentPage >= mainList.totalPage}">
-							<button 
-								class="button button2" 
-								type="button" 
-								disabled="disabled" 
-								title="이미 마지막 페이지 입니다."
-							>마지막</button>
-						</c:if>
-						
-					</td>
-				</tr>
 				
 			</tbody>
 			</table>
@@ -264,16 +192,24 @@
 			<ol>
 				<c:set var="list" value="${selectHit.list}"></c:set>
 				<c:forEach var="vo" items="${list}">
-					<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-					${vo.getSubject()}(${vo.getHit()})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="rankHyper" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+								${vo.getSubject()}(${vo.getHit()})</a>
+						</div>
+					</li>
 				</c:forEach>
 			</ol><hr/>
 			추천 높은 소설 목록<br/>
 			<ol>
 				<c:set var="list" value="${selectGood.list}"></c:set>
 				<c:forEach var="vo" items="${list}">
-					<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-					${vo.getSubject()}(${vo.getGood()})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a class="rankHyper" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+								${vo.getSubject()}(${vo.getGood()})</a>
+						</div>
+					</li>
 				</c:forEach>
 			</ol><hr/>
 			새로운 소설 목록<br/>
@@ -281,17 +217,120 @@
 				<c:set var="list" value="${selectNew.list}"></c:set>
 				<c:forEach var="vo" items="${list}">
 					<fmt:formatDate var="writeDate" value="${vo.getWriteDate()}" pattern="MM/dd H:mm:ss"/>
-					<li><a class="" href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-					${vo.getSubject()}(${writeDate})</a></li>
+					<li>
+						<div class="rankHyper">
+							<a href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
+								${vo.getSubject()}</a>
+						</div>
+					</li>
 				</c:forEach>
-			</ol><hr/>
+			</ol>
 	</div>
 		
-		<!-- 페이징 작업 -->
-		<div id="div5">div5</div>
+	<!-- 페이징 작업 -->
+	<div id="div5">
+	
+		<!-- 처음으로 -->
+		<c:if test="${mainList.currentPage > 1}"> 
+			<button 
+				class="button button1"
+				type="button"
+				title="첫 페이지로 이동합니다."
+				onclick="location.href='?currentPage=1'"
+			>처음</button>
+		</c:if>
+		
+		<c:if test="${mainList.currentPage <= 1}">
+			<button 
+				class="button button2"
+				type="button"
+				title="이미 첫 페이지 입니다."
+				disabled="disabled"
+			>처음</button>
+		</c:if>
+		
+		<!-- 10페이지 앞으로 -->
+		<c:if test="${mainList.startPage > 1}">
+			<button 
+				class="button button1" 
+				type="button" 
+				title="이전 10 페이지로 이동합니다." 
+				onclick="location.href='?currentPage=${mainList.startPage - 1}'"
+			>이전</button>
+		</c:if>
+		
+		<c:if test="${mainList.startPage <= 1}">
+			<button 
+				class="button button2" 
+				type="button" 
+				disabled="disabled" 
+				title="이미 첫 10 페이지 입니다."
+			>이전</button>
+		</c:if>
+		
+		<!-- 페이지 이동 버튼 -->
+		<c:forEach var="i" begin="${mainList.startPage}" end="${mainList.endPage}" step="1">
+
+			<c:if test="${mainList.currentPage == i}">
+				<button 
+					class="button button2" 
+					type="button" 
+					disabled="disabled"
+				>${i}</button>
+			</c:if>
+			
+			<c:if test="${mainList.currentPage != i}">
+				<button 
+					class="button button1" 
+					type="button" 
+					onclick="location.href='?currentPage=${i}'"
+				>${i}</button>
+			</c:if>
+		</c:forEach>
+		
+		<!-- 10페이지 뒤로 -->
+		<c:if test="${mainList.endPage < mainList.totalPage}">
+			<button 
+				class="button button1" 
+				type="button" 
+				title="다음 10 페이지로 이동합니다." 
+				onclick="location.href='?currentPage=${mainList.endPage + 1}'"
+			>다음</button>
+		</c:if>
+		
+		<c:if test="${mainList.endPage >= mainList.totalPage}">
+			<button 
+				class="button button2" 
+				type="button" 
+				disabled="disabled" 
+				title="이미 마지막 10 페이지 입니다."
+			>다음</button>
+		</c:if>
+		
+		<!-- 마지막으로 -->
+		<c:if test="${mainList.currentPage < mainList.totalPage}">
+			<button 
+				class="button button1" 
+				type="button" 
+				title="마지막 페이지로 이동합니다." 
+				onclick="location.href='?currentPage=${mainList.totalPage}'"
+			>마지막</button>
+		</c:if>
+
+		<c:if test="${mainList.currentPage >= mainList.totalPage}">
+			<button 
+				class="button button2" 
+				type="button" 
+				disabled="disabled" 
+				title="이미 마지막 페이지 입니다."
+			>마지막</button>
+		</c:if>
+			
+	</div>
 		
 	</div>
-</div>	
+
+</div>
 
 </body>
 </html>

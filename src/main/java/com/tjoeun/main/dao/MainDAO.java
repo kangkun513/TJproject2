@@ -82,7 +82,11 @@ public class MainDAO {
 //	얻어오는 select sql 명령을 실행하는 메소드
 	public int selectCount(SqlSession mapper, Param param) {
 		System.out.println("MainDAO 클래스의 selectCount() 메소드 실행");
-		return (int) mapper.selectOne("selectCountMulti", param); 
+		
+		int count = (int) mapper.selectOne("selectCountMulti", param); 
+		System.out.println("maindao 클래스 selectCount : " + count);
+		
+		return count;
 	}
 	
 //	MainService 클래스에서 호출되는 mapper와 화면에 출력할 시작 인덱스와 끝 인덱스, 카테고리, 검색어가 
@@ -93,6 +97,20 @@ public class MainDAO {
 		return (ArrayList<MainVO>) mapper.selectList("selectListMulti", param);
 	}
 	
+	
+//	if searchTag = id -> count
+	public int selectCount1(SqlSession mapper, Param param) {
+		System.out.println("MainDAO 클래스의 selectCount1() 메소드 실행");
+		return (int) mapper.selectOne("selectCount1", param);
+	}
+	
+//	if searchTag = id -> list
+	public ArrayList<MainVO> selectList1(SqlSession mapper, Param param) {
+		System.out.println("MainDAO 클래스의 selectList1() 메소드 실행");
+		return (ArrayList<MainVO>) mapper.selectList("selectList1", param);
+	}
+	
+//	글 추천
 	public void good(SqlSession mapper, int idx) {
 		System.out.println("MainDAO 클래스의 good() 메소드 실행");
 		mapper.update("good", idx);

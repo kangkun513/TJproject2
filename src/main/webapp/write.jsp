@@ -19,14 +19,23 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/mainjs.js"></script>
-<link rel="stylesheet" href="./css/write.css"/>
+<link rel="stylesheet" href="./css/main.css"/>
 
 
 </head>
 <body>
+<%
+	int currentPage;
+	try {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	} catch (NumberFormatException e) {
+		currentPage = 1;
+	}
+%>
 	<div class="container">
+	<div>
 		<div id="div0">
-			<a href="list.jsp">
+			<a href="list.jsp?currentPage=<%=currentPage %>">
 				<img src="./images/clock.png" alt="이미지 없음" width="100px"
 					style="margin-left: 10px" />
 			</a>
@@ -48,7 +57,7 @@
 					</tr>
 					<tr>
 						<td style="border: 1px solid black; height: 3em;">
-							<a href="./Main.jsp">
+							<a href="./list.jsp">
 								<img alt="홈버튼" src="./images/menu_re.png"
 									style="width:145px; padding-left: 10px; padding-top:7px">
 							</a>
@@ -61,23 +70,24 @@
 			</div>
 		</div>
 
-		<div id="divA"
-			style="text-align: right; padding-top: 10px; padding-right: 15px">
+		<div id="divA">
 			<!-- 로그인하지 않은 상태 -->
 			<c:if test="${loginCheck != 1}">
-				<input class="btn btn-primary" type="button" value="login"
-					style="width: 35%" onclick="location.href='./login.jsp?backPage=1'" />
-				<input class="btn btn-dark" type="button" value="register"
-					style="width: 50%" onclick="location.href='./register.jsp'"/>
+				<input class="btn btn-primary" type="button" value="Login"
+					style="width: 100px; height: 75%;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+				<input class="btn btn-dark" type="button" value="Register"
+					style="width: 100px; height: 75%;" onclick="location.href='./register.jsp'"/>
 			</c:if>
 			<!-- 로그인한 상태 -->
 			<c:if test="${loginCheck == 1}">
 				${loginInfoID}님 환영합니다
 				<input class="btn btn-primary" type="button" value="logout"
-					style="width: 35%" onclick="location.href='./logout.jsp?backPage=1'" />
+					style="width: 100px; height: 75%;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
 			</c:if>
 		</div>
+	</div>
 
+	<div>
 		<div id="div2">
 			div2
 			<div id="div2_1">subject</div>
@@ -111,6 +121,13 @@
 						<tr class="div3_tr1">
 							<td>카테고리</td>
 							<td style="border: 1px solid black; width: 75%; height: 3em;">
+								<!-- 로그인하지 않은 상태 -->
+								<c:if test="${loginCheck != 1}">
+									<input class="form-control" type="text" placeholder="로그인하세요" 
+										readonly="readonly" disabled="disabled"/>
+								</c:if>
+								<!-- 로그인한 상태 -->
+								<c:if test="${loginCheck == 1}">
 								<select name="category" class="form-control">
 									<option>카테고리 입력</option>
 									<option>공포</option>
@@ -119,19 +136,38 @@
 									<option>순정</option>
 									<option>코미디</option>
 									<option>역사</option>
-							</select>
+								</select>
+								</c:if>
 							</td>
 						</tr>
 						<tr class="div3_tr1">
 							<td class="div3_tr1" style="height: 1em">제목</td>
-							<td><input class="form-control" name="subject" type="text"
-								placeholder="제목을 입력하세요." /></td>
+							<td>
+								<!-- 로그인하지 않은 상태 -->
+								<c:if test="${loginCheck != 1}">
+									<input class="form-control" type="text" placeholder="로그인하세요" 
+										readonly="readonly" disabled="disabled"/>
+								</c:if>
+								<!-- 로그인한 상태 -->
+								<c:if test="${loginCheck == 1}">
+									<input class="form-control" name="subject" type="text"
+										maxlength="100" placeholder="제목을 입력하세요." />
+								</c:if>
+							</td>
 						</tr>
 						<tr class="div3_tr1">
 							<td>내용</td>
 							<td style="border: 1px solid black; width: 80%; height: 25em;">
+								<!-- 로그인하지 않은 상태 -->
+								<c:if test="${loginCheck != 1}">
+									<textarea class="form-control" placeholder="로그인하세요" readonly="readonly" 
+										disabled="disabled" style="height: 100%; resize: none;"></textarea>
+								</c:if>
+								<!-- 로그인한 상태 -->
+								<c:if test="${loginCheck == 1}">
 								<textarea class="form-control" name="content"
-									style="height: 100%; resize: none;"></textarea>
+									maxlength="2000" style="height: 100%; resize: none;"></textarea>
+								</c:if>
 							</td>
 						</tr>
 						<tr class="div3_tr1">
@@ -143,13 +179,21 @@
 							<td style="border: 1px solid black; width: 80%; height: 2em;">blank_7</td>
 						</tr>
 						<tr class="div3_tr1">
-							<td>blank8</td>
-							<td style="border: 1px solid black; width: 100%; height: 50px;"
-								align="center">
+							<td align="center" colspan="2" 
+								style="border: 1px solid black; width: 100%; height: 50px;">
+								<!-- 로그인하지 않은 상태 -->
+								<c:if test="${loginCheck != 1}">
+									<input class="btn btn-sm btn-primary"
+										type="button" value="로그인하세요" disabled="disabled"/> &nbsp;&nbsp;
+								</c:if>
+								<!-- 로그인한 상태 -->
+								<c:if test="${loginCheck == 1}">
 								<input class="btn btn-sm btn-primary"
 										type="submit" value="Save" /> &nbsp;&nbsp; 
 								<input class="btn btn-sm btn-danger" type="button" value="Cancel"
-										onclick="location.href='./goBack.jsp?backPage=${param.backPage}'" /></td>
+										onclick="location.href='./goBack.jsp?backPage=${param.backPage}'" />
+								</c:if>
+							</td>
 						</tr>
 
 					</table>
@@ -158,7 +202,8 @@
 		</div>
 
 		<div id="div4">div4 ${param.backPage}</div>
-
+	</div>
+	
 		<div id="div5">div5</div>
 
 	</div>
