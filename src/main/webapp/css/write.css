@@ -1,0 +1,154 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+		
+		body {
+			font-family: "Noto Sans KR", sans-serif;
+			font-optical-sizing: auto;
+			font-weight: 500;
+			font-style: normal;
+			flex: grid;
+			width: 100vw;
+       		height: 100vh;
+		}
+		
+		.boardHyper {
+			width: 100%;
+	 		white-space: nowrap;
+			text-overflow: ellipsis;
+	  		overflow: hidden; 
+		}
+		
+		.rankHyper {
+			width: 100%;
+	 		white-space: nowrap;
+			text-overflow: ellipsis;
+	  		overflow: hidden; 
+		}
+
+		.rankHyper2 {
+			max-width: 100%;
+	 		display: -webkit-box;
+		  	word-wrap: break-word;
+		  	-webkit-line-clamp: 2;
+		 	-webkit-box-orient: vertical;
+		 	text-overflow: ellipsis;
+		 	overflow: hidden;
+		 	line-height: 1.2rem;
+  			max-height: 2.4rem;
+		}
+		
+		.left {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.right {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+
+		#div0 {
+			height: 120px;
+			width: 10%;
+			padding: 2px;
+			float: left;
+		}
+		
+		#div1 {
+			height: 120px;
+			width: 72%;
+			background-color: green;
+			padding: 2px;
+			display: inline-block;
+			float: left;
+		}
+		
+		#divA {
+			width: 85%;
+			height: 100px;
+			background-color: lavender;
+			height: 120px;
+			width: 15%;
+			padding: 2px;
+			display: inline-block;
+			position : relative;
+		}
+		
+		#div2 {
+			width: 17%;
+			height: 50rem;
+			float: left;
+			position: relative;
+		}
+		
+		#div2_1 {
+			width: 85%;
+			height: 100px;
+			background-color: lavender;
+			display: inline-block;
+			float: left;
+			margin-left: 12px;
+			margin-bottom: 10px;
+		}
+		
+		#div2_2 {
+			width: 85%;
+			height: 100px;
+			background-color: lavender;
+			display: inline-block;
+			margin-left: 12px;
+			margin-bottom: 10px;
+		}
+		
+		#div2_3 {
+			width: 85%;
+			height: 100px;
+			background-color: lavender;
+			display: inline-block;
+			margin-left: 12px;
+		}
+		
+		#div3 {
+			width: 65%;
+			height: 50rem;
+			float: left;
+		}
+		
+		#table1 {
+			width: 95%;
+			height: 95%;
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+		
+		.div3_tr1 {
+			background-color: lavender;
+		}
+		
+		#div4 {
+			width: 15%;
+			height: 50rem;
+			float: left;
+		}
+		
+		#div5 {
+			height: 5rem;
+			width: 97%;
+			display: inline-block;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
