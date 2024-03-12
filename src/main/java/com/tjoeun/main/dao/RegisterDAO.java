@@ -12,17 +12,17 @@ public class RegisterDAO {
     
     // 데이터베이스 연결 정보
     String driver = "oracle.jdbc.driver.OracleDriver";
-    String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    String username = "tjoeunit";
-    String password = "0000";
+    String url = "jdbc:oracle:thin:@192.168.0.102:1522:xe";
+    String username = "admin";
+    String password = "1234";
 
 
     public RegisterDAO() {
         try {
             // 데이터베이스 연결
         	 Class.forName("oracle.jdbc.driver.OracleDriver");                 
-             String url = "jdbc:oracle:thin:@localhost:1521:xe";                    
-             conn = DriverManager.getConnection(url, "tjoeunit", "0000");       
+             String url = "jdbc:oracle:thin:@192.168.0.102:1522:xe";                    
+             conn = DriverManager.getConnection(url, "admin", "1234");       
         } catch (Exception e) {
             e.printStackTrace();
         }

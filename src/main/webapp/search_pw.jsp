@@ -78,8 +78,8 @@
 				<span style="display: inline-block;">제목/ID 검색<br/></span>
 				<form id="search" action="search.jsp" method="post">
 						<select name="searchTag" class="form-control form-control-sm">
-							<option value="subject">subject</option>
-							<option value="id">id</option>
+							<option value="subject">제목</option>
+							<option value="id">아이디</option>
 						</select>
 						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"> 
 						<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" maxlength="10"

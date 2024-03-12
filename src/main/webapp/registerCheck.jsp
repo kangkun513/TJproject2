@@ -11,9 +11,9 @@
 
     // 데이터베이스 연결 정보
     String driver = "oracle.jdbc.driver.OracleDriver";
-    String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    String username = "tjoeunit";
-    String password = "0000";
+    String url = "jdbc:oracle:thin:@192.168.0.102:1522:xe";
+    String username = "admin";
+    String password = "1234";
 
     // 입력된 아이디 가져오기
     String id = request.getParameter("id");

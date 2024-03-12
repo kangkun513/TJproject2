@@ -14,8 +14,8 @@
     PreparedStatement pstmt = null;
     try {
         Class.forName("oracle.jdbc.driver.OracleDriver");                 
-        String url = "jdbc:oracle:thin:@localhost:1521:xe";                    
-        conn = DriverManager.getConnection(url, "tjoeunit", "0000");              
+        String url = "jdbc:oracle:thin:@192.168.0.102:1522:xe";                    
+        conn = DriverManager.getConnection(url, "admin", "1234");          
         
         // 입력된 회원 정보를 가져옴
         String id = request.getParameter("id");
@@ -62,6 +62,8 @@
                 email == null || email.equals("")) {
             request.getSession().setAttribute("messageType", "오류 메시지: ");
             request.getSession().setAttribute("messageContent", "모든 내용을 입력하세요.");
+	    	session.removeAttribute("messageType");
+	    	session.removeAttribute("messageContent");
             response.sendRedirect("register.jsp");
             return;
         }
@@ -80,12 +82,16 @@
         request.getSession().setAttribute("messageType", "성공 메시지: ");
         request.getSession().setAttribute("messageContent", "회원가입이 완료되었습니다.");
         session.setAttribute("registerOk", registerOk);
+    	session.removeAttribute("messageType");
+    	session.removeAttribute("messageContent");
         response.sendRedirect("list.jsp");		// <--- 회원가입 성공시 다른 페이지로 보내게 수정할 것
     } catch (Exception e) {
         e.printStackTrace();
         // 오류 메시지 설정
         request.getSession().setAttribute("messageType", "오류 메시지: ");
         request.getSession().setAttribute("messageContent", "회원가입 중 오류가 발생했습니다.");
+    	session.removeAttribute("messageType");
+    	session.removeAttribute("messageContent");
         response.sendRedirect("register.jsp");
     } finally {
         // 자원 해제
