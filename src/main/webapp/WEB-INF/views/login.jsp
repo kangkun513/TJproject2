@@ -20,6 +20,15 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/mainjs.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+	$(document).ready(function() {
+	    let message = "${msg}";
+	    if (message != "") {
+	        alert(message);
+	    } else { }
+	})
+</script>
 <link rel="stylesheet" href="./css/write.css"/>
 </head>
 <body>
@@ -66,15 +75,16 @@
 			<div class="col-lg-2 bg-light justify-content-center align-items-center">
 				<h4 align="center">메뉴 목록</h4><hr/>
 				
-				<div id="div2_1" class="d-flex flex-column justify-content-center align-items-center">제목/ID 검색
+				<div id="div2_1" class="d-flex flex-column justify-content-center align-items-center">글 제목/ID 검색
 					<form id="search" action="search" method="post">
 						<select name="searchTag" class="form-control form-control-sm">
 							<option value="subject">제목</option>
 							<option value="id">아이디</option>
 						</select>
-						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"> 
-						<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" maxlength="10"
-							style="width: 100%;">
+						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력" 
+							required="required" /> 
+						<input type="submit" class="btn btn-outline-secondary btm-sm" value="검색" maxlength="10"
+							style="width: 100%;" />
 					</form>
 				</div><hr/>
 				
@@ -118,12 +128,12 @@
 										method="post">
 										<div class="form-group">
 											<input id="id" name="id" type="text" maxlength="20" class="form-control rounded-left"
-												placeholder="id" required="required"><br/>
+												placeholder="id" required="required"/><br/>
 										</div>
 										<div class="form-group d-flex">
 											<input name="pw" type="password" maxlength="20"
 												class="form-control rounded-left" placeholder="Password"
-												required="required">
+												required="required"/>
 										</div><br/>
 										<div class="form-group">
 											<button type="submit"
@@ -131,7 +141,7 @@
 										</div>
 										<div class="form-group d-md-flex">
 											<div class="w-100 text-md-end">
-												<a href="./search_pw?backPage=${param.backPage}" style="color: gray;">Forgot Password</a>
+												<a href="./search_pw?backPage=${param.backPage}&currentPage=${currentPage}" style="color: gray;">Forgot Password</a>
 											</div>
 										</div>
 									</form>
@@ -161,7 +171,9 @@
 									<div class="rankHyper">
 										<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}(${vo.getHit()})</a>
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}(${vo.hit})</a>
 									</div>
 								</li>
 							</c:if>
@@ -185,7 +197,9 @@
 								<div class="rankHyper">
 									<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-									${vo.getSubject()}(${vo.getGood()})</a>
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+									${subject}(${vo.good})</a>
 								</div>
 							</li>
 							</c:if>
@@ -210,7 +224,9 @@
 									<div class="rankHyper">
 										<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}</a>
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}</a>
 									</div>
 								</li>
 							</c:if>

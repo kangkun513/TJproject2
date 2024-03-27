@@ -5,9 +5,26 @@
 	
 	<!-- MainVO 클래스의 bean -->
 	<bean id="mainVO" class="com.tjoeun.main.vo.MainVO"/>
+	
 	<!-- MainList 클래스의 bean -->
 	<bean id="mainList" class="com.tjoeun.main.vo.MainList"/>
+	
+	<bean id="selectHit" class="com.tjoeun.main.vo.MainList"/>
+	<bean id="selectGood" class="com.tjoeun.main.vo.MainList"/>
+	<bean id="selectNew" class="com.tjoeun.main.vo.MainList"/>
+
+	<!-- MainCommentVO 클래스의 bean -->
+	<bean id="commentVO" class="com.tjoeun.main.vo.MainCommentVO"/>
+	
+	<bean id="origincom" class="com.tjoeun.main.vo.MainCommentVO"/>
+	
+	<!-- MainCommentList 클래스의 bean -->
+	<bean id="commentList" class="com.tjoeun.main.vo.MainCommentList"/>
+
 	<!-- MemberVO 클래스의 bean -->
 	<bean id="memberVO" class="com.tjoeun.main.vo.MemberVO"/>
+
+	<!-- Param 클래스의 bean -->
+	<bean id="param" class="com.tjoeun.main.vo.Param"/>
 	
 </beans>

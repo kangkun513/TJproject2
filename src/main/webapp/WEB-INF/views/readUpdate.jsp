@@ -18,13 +18,12 @@
 </head>
 <body>
 
-<c:set var="mainvo" value="${Mainboard}" />
 <div class="container">
 
 		<nav class="navbar navbar-light bg-light static-top justify-content-center">
 			<div class="row">
 				<div class="col-lg-2 d-flex align-items-center justify-content-center">
-					<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list.jsp'"
+					<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list'"
 						style="width: 100%; height: 100%; max-height: 5em;"/>
 				</div>
 		
@@ -38,16 +37,16 @@
 					<!-- 로그인하지 않은 상태 -->
 					<c:if test="${loginCheck != 1}">
 						<input class="btn btn-primary" type="button" value="Login"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./login?backPage=1&currentPage=${currentPage}'" />
 						<input class="btn btn-dark" type="button" value="Register"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./register.jsp'"/>
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./register'"/>
 					</c:if>
 					<!-- 로그인한 상태 -->
 					<c:if test="${loginCheck == 1}">
 						<div class="overflow-auto d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; max-height: 5em;">
 							<div class="loginInfo"><strong>${loginInfoID}</strong></div>님<br/></div>
 						<input class="btn btn-primary" type="button" value="logout"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout?backPage=1&currentPage=${currentPage}'" />
 					</c:if>
 				</div>
 			</div>
@@ -55,7 +54,7 @@
 	
 	
 		<div class="container bg-light">
-			<form action="selectByIdx.jsp" method="post">
+			<form action="selectByIdx?job=updateOK" method="post">
 				<div class="row justify-content-center">
 				
 				<div class="col-lg-2 bg-light justify-content-center align-items-center">
@@ -76,7 +75,7 @@
 						<input class="btn btn-primary btn-sm" type="submit" value="수정 완료"
 							style="width: 100%; height: 80%;"/>
 						<input class="btn btn-secondary btn-sm" type="button" value="수정 취소" style="width: 100%; height: 80%;"
-							onclick="location.href='selectByIdx.jsp?idx=${mainvo.idx}&currentPage=${currentPage}'"/>
+							onclick="location.href='selectByIdx?idx=${mainvo.idx}&currentPage=${currentPage}'"/>
 					</div><hr/>
 				</div>
 				
@@ -140,8 +139,10 @@
 								<li style="color: #198754;">
 									<div class="rankHyper">
 										<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}(${vo.getHit()})</a>
+											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}(${vo.hit})</a>
 									</div>
 								</li>
 							</c:if>
@@ -164,8 +165,10 @@
 							<li style="color: #dc3545;">
 								<div class="rankHyper">
 									<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-									${vo.getSubject()}(${vo.getGood()})</a>
+										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+									${subject}(${vo.good})</a>
 								</div>
 							</li>
 							</c:if>
@@ -189,8 +192,10 @@
 								<li style="color: #0d6efd;">
 									<div class="rankHyper">
 										<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}</a>
+											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}</a>
 									</div>
 								</li>
 							</c:if>

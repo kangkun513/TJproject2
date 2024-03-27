@@ -21,7 +21,6 @@
 <script type="text/javascript" src="./js/mainjs.js"></script>
 <link rel="stylesheet" href="./css/write.css"/>
 
-
 </head>
 <body>
 <div class="container">
@@ -53,7 +52,7 @@
 						<div class="overflow-auto d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; max-height: 5em;">
 							<div class="loginInfo"><strong>${loginInfoID}</strong></div>님<br/></div>
 						<input class="btn btn-primary" type="button" value="Logout"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout?backPage=1&currentPage=${currentPage}'" />
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout?backPage=2&currentPage=${currentPage}'" />
 					</c:if>
 				</div>
 			</div>
@@ -71,9 +70,9 @@
 							<option value="subject">subject</option>
 							<option value="id">id</option>
 						</select>
-						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"> 
+						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"/> 
 						<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" maxlength="10"
-							style="width: 100%;">
+							style="width: 100%;" required="required"/>
 					</form>
 				</div><hr/>
 				
@@ -141,7 +140,7 @@
 									<!-- 로그인한 상태 -->
 									<c:if test="${loginCheck == 1}">
 										<input class="form-control" name="subject" type="text"
-											maxlength="100" placeholder="제목을 입력하세요." />
+											maxlength="100" placeholder="제목을 입력하세요." required="required"/>
 									</c:if>
 								</td>
 							</tr>
@@ -156,7 +155,7 @@
 									<!-- 로그인한 상태 -->
 									<c:if test="${loginCheck == 1}">
 									<textarea class="form-control" name="content"
-										maxlength="2000" style="height: 100%; resize: none;"></textarea>
+										maxlength="10000" style="height: 100%; resize: none;" required="required"></textarea>
 									</c:if>
 								</td>
 							</tr>
@@ -204,7 +203,9 @@
 								<div class="rankHyper">
 									<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-									${vo.getSubject()}(${vo.getHit()})</a>
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+									${subject}(${vo.hit})</a>
 								</div>
 							</li>
 						</c:if>
@@ -228,7 +229,9 @@
 							<div class="rankHyper">
 								<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 									href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-								${vo.getSubject()}(${vo.getGood()})</a>
+								<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+								<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+								${subject}(${vo.good})</a>
 							</div>
 						</li>
 						</c:if>
@@ -253,7 +256,9 @@
 								<div class="rankHyper">
 									<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-									${vo.getSubject()}</a>
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+									${subject}</a>
 								</div>
 							</li>
 						</c:if>

@@ -185,11 +185,7 @@
 						</tr>
 						<tr>
 							<th valign="top">내용</th>
-						
 							<c:if test="${vo.deleted != 'yes'}">
-								<c:set var="content" value="${fn:replace(vo.content, '<', '&lt;')}"/>
-								<c:set var="content" value="${fn:replace(content, '>', '&gt;')}"/>
-								<c:set var="content" value="${fn:replace(content, enter, '<br/>')}"/>
 								<td class="contentText">
 									${vo.content}
 								</td>
@@ -258,7 +254,7 @@
 							<!-- 댓글이 있는 경우 -->
 							<c:if test="${comment.size() != 0}">
 								<c:set var="upidx" value="1" />
-								<c:forEach var="co" items="${commentList.list}">
+								<c:forEach var="co" items="${comment}">
 								
 								<c:set var="updateForm" value="updateform${co.idx}"></c:set>
 								<c:set var="replyForm" value="replyform${co.idx}"></c:set>
@@ -266,9 +262,6 @@
 								<fmt:formatDate var="codate" value="${co.writeDate}" pattern="yyyy/MM/dd a h:mm:ss"/>
 									<c:set var="name" value="${fn:replace(co.name, '<', '&lt;')}"/>
 									<c:set var="name" value="${fn:replace(name, '>', '&gt;')}"/>
-									<c:set var="content" value="${fn:replace(co.content, '<', '&lt;')}"/>
-									<c:set var="content" value="${fn:replace(content, '>', '&gt;')}"/>
-									<c:set var="content" value="${fn:replace(content, enter, '<br/>')}"/>
 									<div>
 									
 									${upidx}. 
@@ -278,26 +271,25 @@
 									<!-- 삭제된 댓글이 아닐 경우 표시 -->
 									<c:if test="${co.deleted != 'yes'}">
 										<div style="width: 100%;">
-											<div class="commentText">${content}</div><br/>
+											<div class="commentText">${co.content}</div><br/>
 											${name}님이 ${codate}에 작성<br/>
 											<!-- 댓글 아이디와 회원 아이디가 같을 경우 -->
 											<c:if test="${name == loginInfoID}">
 												
 												<input class="btn btn-primary btn-sm" type="button" value="댓글 수정" onclick="setting(${co.idx}, 1)"/>
 												<input class="btn btn-danger btn-sm" type="button" value="댓글 삭제" 
-													onclick="location.href='commentDelete?idx=${idx}&commentidx=${co.idx}&currentPage=${currentPage}'"/>
+													onclick="location.href='commentDelete?idx=${idx}&comidx=${co.idx}&currentPage=${currentPage}'"/>
 												
 												<form action="commentUpdate" name="${updateForm}" method="post" id="${updateForm}" style="display: none;">
-												<textarea class="form-control form-control-sm" maxlength="100000" name="upcomment" rows="4"
+												<textarea class="form-control form-control-sm" maxlength="250" name="content" rows="4"
 													style="width: 50%; resize: none; display: inline-block;"></textarea>
 												<div style="display: inline-block;">
 													<input class="btn btn-primary btn-sm" type="submit" value="댓글 수정"/><br/>
 													<input class="btn btn-secondary btn-sm" type="button" value="취소" onclick="setting(${co.idx}, 3)"/>
-
 												</div>
 												<div hidden="hidden">
-													idx: <input type="text" name="voidx" value="${idx}" size="1" readonly="readonly"/>
-													comidx: <input type="text" id="comidx" name="comidx" value="${co.idx}" size="1" readonly="readonly"/>
+													idx: <input type="text" name="gup" value="${idx}" size="1" readonly="readonly"/>
+													comidx: <input type="text" id="comidx" name="idx" value="${co.idx}" size="1" readonly="readonly"/>
 													mode: <input type="text" name="mode" value="1" size="1" readonly="readonly"/>
 													currentPage: <input type="text" name="currentPage" value="${currentPage}" size="1" readonly="readonly"/>
 												</div>
@@ -342,8 +334,10 @@
 									<li style="color: #198754;">
 										<div class="rankHyper">
 											<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-												href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
-											${vo.getSubject()}(${vo.getHit()})</a>
+												href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+											<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+											<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
+											${subject}(${vo.hit})</a>
 										</div>
 									</li>
 								</c:if>
@@ -366,8 +360,10 @@
 							<li style="color: #dc3545;">
 								<div class="rankHyper">
 									<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
-									${vo.getSubject()}(${vo.getGood()})</a>
+										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
+									${subject}(${vo.good})</a>
 								</div>
 							</li>
 							</c:if>
@@ -392,7 +388,9 @@
 									<div class="rankHyper">
 										<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}</a>
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
+										${subject}</a>
 									</div>
 								</li>
 							</c:if>

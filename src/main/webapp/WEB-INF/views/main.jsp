@@ -62,15 +62,16 @@
 			<div class="col-lg-2 bg-light justify-content-center align-items-center">
 				<h4 align="center">메뉴 목록</h4><hr/>
 				
-				<div id="div2_1" class="d-flex flex-column justify-content-center align-items-center">제목/ID 검색
+				<div id="div2_1" class="d-flex flex-column justify-content-center align-items-center">글 제목/ID 검색
 					<form id="search" action="search" method="post">
 						<select name="searchTag" class="form-control form-control-sm">
 							<option value="subject">제목</option>
 							<option value="id">아이디</option>
 						</select>
-						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"> 
+						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력" 
+							value="${searchVal}" required="required" /> 
 						<input type="submit" class="btn btn-outline-secondary btm-sm" value="검색" maxlength="10"
-							style="width: 100%;">
+							style="width: 100%;" />
 					</form>
 				</div><hr/>
 				
@@ -321,7 +322,9 @@
 											<div class="rankHyper">
 												<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 													href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
-												${vo.getSubject()}(${vo.getHit()})</a>
+												<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+												<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+												${subject}(${vo.hit})</a>
 											</div>
 										</li>
 									</c:if>
@@ -352,7 +355,9 @@
 											<div class="rankHyper">
 												<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 													href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
-												${vo.getSubject()}(${vo.getGood()})</a>
+												<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+												<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+												${subject}(${vo.good})</a>
 											</div>
 										</li>
 										</c:if>
@@ -382,7 +387,9 @@
 											<div class="rankHyper">
 												<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 													href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
-												${vo.getSubject()}</a>
+												<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+												<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+												${subject}</a>
 											</div>
 										</li>
 									</c:if>

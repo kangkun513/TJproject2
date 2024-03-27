@@ -80,14 +80,14 @@
 								</th>
 								<td class="register align-middle"><input id="id"
 									class="form-control form-control-sm" type="text" name="id"
-									placeholder="아이디를 입력하세요" autocomplete="off" maxlength="20" /></td>
+									placeholder="아이디를 입력하세요" autocomplete="off" maxlength="20" required="required"/></td>
 							</tr>
 							<tr class="register">
 								<th class="register align-middle table-light"><label
 									for="pw">비밀번호</label></th>
 								<td colspan="2" class="register align-middle"><input id="pw"
 									class="form-control form-control-sm" type="password" name="pw"
-									placeholder="비밀번호를 입력하세요" autocomplete="off" maxlength="20"
+									placeholder="비밀번호를 입력하세요" autocomplete="off" maxlength="20" required="required"
 									onkeyup="passwordCheckFunction()" /></td>
 							</tr>
 							<tr class="register">
@@ -95,28 +95,28 @@
 									for="pw2">비밀번호 확인</label></th>
 								<td colspan="2" class="register align-middle"><input id="pw2"
 									class="form-control form-control-sm" type="password" name="pw2"
-									placeholder="비밀번호를 다시 한 번 입력하세요" autocomplete="off"
+									placeholder="비밀번호를 다시 한 번 입력하세요" autocomplete="off" required="required"
 									maxlength="20" onkeyup="passwordCheckFunction()" /></td>
 							</tr>
 							<tr class="register">
 								<th class="register align-middle table-light"><label
 									for="name">이름</label></th>
 								<td colspan="2" class="register align-middle"><input id="name"
-									class="form-control form-control-sm" type="text" name="name"
+									class="form-control form-control-sm" type="text" name="name" required="required"
 									placeholder="이름을 입력하세요" maxlength="20" autocomplete="off" /></td>
 							</tr>
 							<tr class="register">
 								<th class="register align-middle table-light"><label
 									for="nick">닉네임</label></th>
 								<td colspan="2" class="register align-middle"><input id="nick"
-									class="form-control form-control-sm" type="text" name="nick"
+									class="form-control form-control-sm" type="text" name="nick" required="required"
 									placeholder="닉네임을 입력하세요" maxlength="20" autocomplete="off" /></td>
 							</tr>
 							<tr class="register">
 								<th class="register align-middle table-light"><label
 									for="email">이메일</label></th>
 								<td colspan="2" class="register align-middle"><input id="email"
-									class="form-control form-control-sm" type="email" name="email"
+									class="form-control form-control-sm" type="email" name="email" required="required"
 									placeholder="이메일을 입력하세요" maxlength="100" autocomplete="off" />
 								</td>
 							</tr>

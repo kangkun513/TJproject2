@@ -1,5 +1,3 @@
-<%@page import="com.tjoeun.main.vo.MainList"%>
-<%@page import="com.tjoeun.main.service.MainService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -22,13 +20,16 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <script type="text/javascript" src="./js/mainjs.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+	$(document).ready(function() {
+	    let message = "${msg}";
+	    if (message != "") {
+	        alert(message);
+	    } else { }
+	})	
+</script>
 <link rel="stylesheet" href="./css/write.css"/>
-
-<%
-	MainList selectHit = MainService.getInstance().selectHit();
-	MainList selectGood = MainService.getInstance().selectGood();
-	MainList selectNew = MainService.getInstance().selectNew();
-%>
 
 </head>
 <body>
@@ -38,7 +39,7 @@
 		<nav class="navbar navbar-light bg-light static-top justify-content-center">
 			<div class="row">
 				<div class="col-lg-2 d-flex align-items-center justify-content-center">
-					<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list.jsp'"
+					<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list'"
 						style="width: 100%; height: 100%; max-height: 5em;"/>
 				</div>
 		
@@ -52,16 +53,16 @@
 					<!-- 로그인하지 않은 상태 -->
 					<c:if test="${loginCheck != 1}">
 						<input class="btn btn-primary" type="button" value="Login"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./login.jsp?backPage=1&currentPage=${currentPage}'" />
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./login?backPage=1&currentPage=${currentPage}'" />
 						<input class="btn btn-dark" type="button" value="Register"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./register.jsp'"/>
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./register'"/>
 					</c:if>
 					<!-- 로그인한 상태 -->
 					<c:if test="${loginCheck == 1}">
 						<div class="overflow-auto d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; max-height: 5em;">
 							<div class="loginInfo"><strong>${loginInfoID}</strong></div>님<br/></div>
 						<input class="btn btn-primary" type="button" value="Logout"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout.jsp?backPage=1&currentPage=${currentPage}'" />
+							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout?backPage=1&currentPage=${currentPage}'" />
 					</c:if>
 				</div>
 			</div>
@@ -75,15 +76,16 @@
 				<h4 align="center">메뉴 목록</h4><hr/>
 			
 				<div id="div2_1" class="d-flex flex-column justify-content-center align-items-center">
-				<span style="display: inline-block;">제목/ID 검색<br/></span>
-				<form id="search" action="search.jsp" method="post">
+				<span style="display: inline-block;">글 제목/ID 검색<br/></span>
+				<form id="search" action="search" method="post">
 						<select name="searchTag" class="form-control form-control-sm">
 							<option value="subject">제목</option>
 							<option value="id">아이디</option>
 						</select>
-						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력"> 
-						<input type="submit" class="btn btn-outline-primary btm-sm" value="검색" maxlength="10"
-							style="width: 100%;">
+						<input class="form-control form-control-sm" size="12" name="searchVal" type="text" placeholder="검색어 입력" 
+							required="required" /> 
+						<input type="submit" class="btn btn-outline-secondary btm-sm" value="검색" maxlength="10"
+							style="width: 100%;" />
 					</form>
 				</div><hr/>
 			
@@ -121,7 +123,7 @@
 									<span class="fa fa-user-o"></span>
 								</div>
 								<h3 class="text-center mb-4">Search Password</h3>
-								<form action="./search_pw_OK.jsp?backPage=${param.backPage}" id="forgotWindow" class="forgot-form"
+								<form action="./search_pw_OK?backPage=${param.backPage}" id="forgotWindow" class="forgot-form"
 									method="post">
 									<div class="form-group">
 										<input name="id" type="text" class="form-control rounded-left"
@@ -163,14 +165,16 @@
 					조회수 TOP 5<br/>
 					</div>
 					<ol>
-						<c:set var="list" value="<%=selectHit.getList() %>" />
+						<c:set var="list" value="${selectHit.list}" />
 						<c:forEach var="vo" items="${list}">
 							<c:if test="${vo.deleted != 'yes'}">
 								<li style="color: #198754;">
 									<div class="rankHyper">
 										<a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}(${vo.getHit()})</a>
+											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}(${vo.hit})</a>
 									</div>
 								</li>
 							</c:if>
@@ -187,14 +191,16 @@
 					추천수 TOP 5<br/>
 					</div>
 					<ol>
-						<c:set var="list" value="<%=selectGood.getList() %>" />
+						<c:set var="list" value="${selectGood.list}" />
 						<c:forEach var="vo" items="${list}">
 							<c:if test="${vo.deleted == 'no'}">
 							<li style="color: #dc3545;">
 								<div class="rankHyper">
 									<a class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-										href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-									${vo.getSubject()}(${vo.getGood()})</a>
+										href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+									<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+									<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>
+									${subject}(${vo.good})</a>
 								</div>
 							</li>
 							</c:if>
@@ -211,15 +217,17 @@
 					Today NEW 5<br/>
 					</div>
 					<ol>
-						<c:set var="list" value="<%=selectNew.getList() %>" />
+						<c:set var="list" value="${selectNew.list}" />
 						<c:forEach var="vo" items="${list}">
 							<fmt:formatDate var="writeDate" value="${vo.getWriteDate()}" pattern="MM/dd HH:mm:ss"/>
 							<c:if test="${vo.deleted == 'no'}">
 								<li style="color: #0d6efd;">
 									<div class="rankHyper">
 										<a class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-											href="increment.jsp?idx=${vo.idx}&currentPage=${currentPage}">
-										${vo.getSubject()}</a>
+											href="increment?idx=${vo.idx}&currentPage=${currentPage}">
+										<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+										<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+										${subject}</a>
 									</div>
 								</li>
 							</c:if>

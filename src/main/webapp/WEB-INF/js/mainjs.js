@@ -26,12 +26,12 @@ function commentFormCheck(obj) {
 	console.log(obj.name.value)
 	console.log(obj.content.value)
 	if (!obj.name.value || obj.name.value.trim().length == 0) {
-		alert('이름을 입력하세요')
+		alert('로그아웃 상태이거나 잘못된 접근입니다')
 		obj.name.value= ''
 		obj.name.focus()
 		return false;
 	} else if (!obj.content.value || obj.content.value.trim().length == 0) {
-		alert('내용을 입력하세요')
+		alert('댓글 내용을 입력하세요')
 		obj.content.value= ''
 		obj.content.focus()
 		return false;
@@ -44,7 +44,7 @@ function commentFormCheck(obj) {
 function registerCheckFunction() {
     let id = $('#id').val();
     // 입력된 아이디가 비어 있는지 확인
-    if (id.trim() === '') {
+    if (id.trim() == '') {
         alert('ID를 입력하세요.');
 	}
     else {
