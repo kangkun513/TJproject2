@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	실행할 sql 명령이 저장된 xml 파일의 namespace에는 반드시 mapper 역할을 하는 인터페이스 이름을 
+	풀 패키지 이름과 같이 적어야 함	
+-->
+<mapper namespace="com.tjoeun.main.dao.MybatisDAO">
+	
+	<!-- 메인글 1건 저장 -->
+	<insert id="insert" parameterType="vo">
+		insert into main (idx, subject, content, gup, category, id)
+		values (main_idx_seq.nextval, #{subject}, #{content}, main_idx_seq.currval, #{category}, #{id})
+	</insert>
+	
+	<!-- 전체 글의 개수 얻어옴 -->	
+	<select id="selectCount" resultType="int">
+		select count(*) from main where deleted = 'no'
+	</select>
+	
+	<!-- 메인 글 1페이지 불러옴 -->
+	<select id="selectList" parameterType="java.util.HashMap" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where deleted = 'no' order by idx desc
+			) AA 
+		) where rnum between #{startNo} and #{endNo}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increment" parameterType="int">
+		update main set hit = hit + 1 where idx = #{idx} and deleted = 'no'
+	</update>
+	
+	<!-- 메인 글 1건 내용 불러옴 -->
+	<select id="selectByIdx" parameterType="int" resultType="vo">
+		select * from main where idx = #{idx}
+	</select>
+	
+	<!-- 메인 글 1건 삭제 -->
+	<update id="delete" parameterType="int">
+		update main set deleted = 'yes', hit = -1000000, good = -1000000, category = '삭제' where idx = #{idx} and deleted = 'no'
+	</update>
+	
+	<!-- 메인 글 1건 수정 -->
+	<update id="update" parameterType="vo">
+		update main set subject = #{subject}, content = #{content}, category = #{category} where idx = #{idx} and deleted = 'no'
+	</update>
+	
+	<!-- 해당 글 추천 수 1회 증가 -->
+	<update id="good" parameterType="int">
+		update main set good = good + 1 where idx = #{idx} and deleted = 'no'
+	</update>
+	
+	<!-- 조회수 랭킹 글 5건을 불러옴 -->
+	<select id="selectHit" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where deleted = 'no' order by hit desc
+			) AA 
+		) where rnum between 1 and 5
+	</select>
+	
+	<!-- 추천수 랭킹 글 5건을 불러옴 -->
+	<select id="selectGood" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where deleted = 'no' order by good desc
+			) AA 
+		) where rnum between 1 and 5
+	</select>
+	
+	<!-- 신규글 랭킹 글 5건을 불러옴 -->
+	<select id="selectNew" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where deleted = 'no' order by idx desc
+			) AA 
+		) where rnum between 1 and 5
+	</select>
+	
+	<!-- 제목에 검색어를 포함하는 글의 개수를 얻어온다.-->
+	<select id="searchCount1" parameterType="param" resultType="int">
+		select count (*) from main where subject like '%'||#{searchVal}||'%' or category like '%'||#{searchVal}||'%'
+	</select>
+	
+	<!-- 제목에 검색어를 포함하는 페이지 분량의 글 목록을 얻어온다.-->
+	<select id="searchList1" parameterType="param" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where subject like '%'||#{searchVal}||'%' or category like '%'||#{searchVal}||'%' order by idx desc
+			) AA 
+		) where rnum between #{startNo} and #{endNo}
+    </select>
+	
+	<!-- ID에 검색어를 포함하는 글 -->
+	<select id="searchCount2" parameterType="param" resultType="int">
+		select count (*) from main where id like '%'||#{searchVal}||'%' or category like '%'||#{searchVal}||'%'
+	</select>
+	
+	<!-- ID에 검색어를 포함하는 글 -->
+	<select id="searchList2" parameterType="param" resultType="vo">
+		select * from (
+			select rownum rnum, AA.* from (
+				select * from main where id like '%'||#{searchVal}||'%' or category like '%'||#{searchVal}||'%' order by idx desc
+			) AA 
+		) where rnum between #{startNo} and #{endNo}
+    </select>
+    
+    
+    
+	<!-- 로그인 계정 정보 일치 확인 -->
+	<select id="login" parameterType="memvo" resultType="int">
+		select count(*) from register where id = #{id} and pw = #{pw}
+	</select>
+    
+    <!-- 회원가입 시 중복 아이디 확인 -->
+    <select id="checkID" parameterType="java.lang.String" resultType="int">
+    	select count(*) from register where id = #{id}
+    </select>
+    
+    <!-- 회원가입 시 새 계정 정보 저장 -->
+    <insert id="register" parameterType="java.util.HashMap">
+    	insert into register (id, pw, name, nick, email)
+    	values (#{id}, #{pw}, #{name}, #{nick}, #{email})
+    </insert>
+    
+    <!-- 비밀번호 찾기 -->
+	<select id="search_pw" parameterType="memvo" resultType="memvo">
+  		select * from register where id = #{id} and name = #{name} and email = #{email}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="search_pw_check" parameterType="memvo" resultType="int"> 
+		select count(*) from register where id = #{id} and name = #{name} and email = #{email}
+	</select>
+	
+</mapper>
