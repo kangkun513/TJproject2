@@ -163,7 +163,7 @@
 			%>
 									<input class="btn btn-info btn-sm" value="추천"  style="width: 100%; height: 80%; font-size: 20px;"
 										data-bs-toggle="tooltip" 
-										data-bs-placement="top"
+										data-bs-placement="bottom"
 										title="해당 소설을 추천합니다"
 										onclick="location.href='selectByIdx?idx=${vo.idx}&currentPage=${currentPage}&job=good'"/>
 			<%
@@ -172,7 +172,7 @@
 			%>
 									<input class="btn btn-info btn-sm" value="추천"  style="width: 100%; height: 80%; font-size: 20px;"
 										data-bs-toggle="tooltip" 
-										data-bs-placement="top"
+										data-bs-placement="bottom"
 										title="해당 소설을 추천합니다"
 										onclick="location.href='selectByIdx?idx=${vo.idx}&currentPage=${currentPage}&job=good'"/>
 			<%						

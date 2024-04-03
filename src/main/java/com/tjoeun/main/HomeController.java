@@ -532,17 +532,34 @@ public class HomeController {
 		String searchTag = request.getParameter("searchTag");
 		String category = request.getParameter("category");
 		String searchVal = request.getParameter("searchVal");
-			
-		if (searchVal != null) { // 넘어온 검색어가 있으면 세션에 태그와 검색어를 저장
+		if(searchTag == null) {searchTag = "subject";}
+		if(category == null) {category = "";}
+		if(searchVal == null) {searchVal = "";}
+		
+		// category = category.trim().length() == 0 ? "" : category;
+		// searchVal = searchVal.trim().length() == 0 ? "" : searchVal;
+		
+		if (!searchVal.trim().equals("")) { // 검색어가 있으면 세션에 태그와 검색어를 저장
 			session.setAttribute("searchTag", searchTag);
 			session.setAttribute("category", category);
-			searchVal = searchVal.trim().length() == 0 ? "" : searchVal;
 			session.setAttribute("searchVal", searchVal);
 		} else { // 검색어가 없으면 세션에 저장된 검색어와 카테고리를 읽어온다.
 			searchTag = (String) session.getAttribute("searchTag");
 			category = (String) session.getAttribute("category");
 			searchVal = (String) session.getAttribute("searchVal");
 		}
+		
+		if (!category.trim().equals("")) { // 카테고리가 있으면 세션에 태그는 category, 카테고리값을 저장
+			searchTag = "category";
+			session.setAttribute("searchTag", searchTag);
+			session.setAttribute("category", category);
+		} else { // 카테고리 없으면 카테고리값을 비움
+			// session.setAttribute("searchTag", searchTag);
+			session.setAttribute("category", "");
+			// searchTag = (String) session.getAttribute("searchTag");
+		}
+		logger.info(String.format("searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		
 		MainList mainList = ctx.getBean("mainList", MainList.class);
 
 		param.setSearchTag(searchTag);
@@ -561,6 +578,12 @@ public class HomeController {
 			param.setStartNo(mainList.getStartNo());
 			param.setEndNo(mainList.getEndNo());
 			mainList.setList(mapper.searchList2(param));
+		} else if (searchTag.equals("category")) {
+			int totalCount = mapper.searchCount3(param);
+			mainList.initMainList(pageSize, totalCount, currentPage);
+			param.setStartNo(mainList.getStartNo());
+			param.setEndNo(mainList.getEndNo());
+			mainList.setList(mapper.searchList3(param));
 		}
 		
 		model.addAttribute("mainList", mainList);
@@ -575,7 +598,9 @@ public class HomeController {
 		model.addAttribute("selectHit", selectHit);
 		model.addAttribute("selectGood", selectGood);
 		model.addAttribute("selectNew", selectNew);
-		model.addAttribute("searchVal", searchVal);
+		// model.addAttribute("searchTag", searchTag);
+		// model.addAttribute("searchVal", searchVal);
+		// model.addAttribute("category", category);
 		
 		ctx.close();
 		return "main";

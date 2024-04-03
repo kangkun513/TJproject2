@@ -28,8 +28,10 @@ public interface MybatisDAO {
 	ArrayList<MainVO> selectListMulti(HashMap<String, Integer> hmap);
 	int searchCount1(Param param);
 	int searchCount2(Param param);
+	int searchCount3(Param param);
 	ArrayList<MainVO> searchList1(Param param);
 	ArrayList<MainVO> searchList2(Param param);
+	ArrayList<MainVO> searchList3(Param param);
 	
 	
 	int login(MemberVO memberVO);

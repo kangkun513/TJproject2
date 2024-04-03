@@ -70,7 +70,7 @@
 						</c:if>
 						<!-- 로그인한 상태 -->
 						<c:if test="${loginCheck == 1}">
-							<div class="d-flex"
+							<div class="d-flex align-items-center justify-content-center"
 								style="width: 100%; height: 100%; max-height: 5em; border-radius: 10px; background-color: #eae2e2;">
 				                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
 				                  alt="이미지 없음"
@@ -108,7 +108,9 @@
 							value="${searchVal}" required="required" 
 							oninvalid="setCustomValidity('검색어를 입력하세요')"
 							oninput="setCustomValidity('')"/>
-						<input type="submit" class="btn btn-outline-secondary btm-sm" value="검색" maxlength="10"
+						<input type="text" value="${category}" name="category" hidden="hidden"/>
+						<input type="submit" onclick="search()" value="검색" maxlength="10"
+							class="btn btn-outline-secondary btm-sm" 
 							data-bs-toggle="tooltip" 
 							data-bs-placement="bottom"
 							title="입력하신 검색어로 소설글을 검색합니다"
@@ -117,7 +119,7 @@
 				</div><hr/>
 				
 				<div id="div2_2" class="d-flex flex-column justify-content-center align-items-center">카테고리 검색
-						<span style="width: 90%;" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+						<span style="width: 100%;" data-bs-toggle="tooltip" data-bs-placement="bottom" 
 							title="선택하신 카테고리로 소설글을 검색합니다">
 						<select id="category" 
 		                  class="form-control form-control-sm" 
@@ -132,8 +134,7 @@
 							<option value="역사">역사</option>
 							<option value="판타지">판타지</option>
 							<option value="무협">무협</option>
-						</select>
-						</span>
+						</select></span>
 				</div><hr/>
 				
 				
@@ -452,14 +453,48 @@
 								<c:set var="list" value="${selectNew.list}" />
 								<c:forEach var="vo" items="${list}">
 									<fmt:formatDate var="Date" value="${vo.writeDate}" pattern="a h:mm:ss"/>
-									<fmt:formatDate var="todaydate" value="${todayDate}" pattern="yy/MM/dd"/>
-									<fmt:formatDate var="writedate" value="${vo.writeDate}" pattern="yy/MM/dd"/>
+									<fmt:formatDate var="todaydate" value="${todayDate}" pattern="yyyy/MM/dd"/>
+									<fmt:formatDate var="todayMonth" value="${todayDate}" pattern="yyyyMM"/>
+									<fmt:formatDate var="todayDay" value="${todayDate}" pattern="dd"/>
+									<fmt:formatDate var="writedate" value="${vo.writeDate}" pattern="yyyy/MM/dd"/>
+									<fmt:formatDate var="writeMonth" value="${vo.writeDate}" pattern="yyyyMM"/>
+									<fmt:formatDate var="writeDay" value="${vo.writeDate}" pattern="dd"/>
 									<c:if test="${todaydate == writedate}">
 										<c:if test="${vo.deleted == 'no'}">
 											<li>
 												<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
 												<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
-												<div class="rankHyper newRank"data-bs-toggle="tooltip" data-bs-placement="left" title="${subject}(${Date})">
+												<div class="rankHyper newRank"data-bs-toggle="tooltip" data-bs-placement="left" title="${subject}(오늘 ${Date})">
+													<a style="display: block;" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+														href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
+													${subject}</a>
+												</div>
+											</li>
+										</c:if>
+										<c:if test="${vo.deleted == 'yes'}">
+											<li>
+												<div class="rankHyper newRank">삭제된 글입니다</div>
+											</li>
+										</c:if>
+									</c:if>
+									<c:if test="${(todayMonth == writeMonth && writeDay == todayDay - 1) || 
+										 (( (todayMonth % 100 == 1 && writeMonth == todayMonth - 89) || 
+											((todayMonth % 100 == 2 || 
+											todayMonth % 100 == 4 || 
+											todayMonth % 100 == 6 || 
+											todayMonth % 100 == 8 || 
+											todayMonth % 100 == 9 || 
+											todayMonth % 100 == 11) && writeMonth == todayMonth - 1)) && todayDay == 1 && writeDay == 31) || 
+										 (( (todayMonth % 100 == 5 || 
+											todayMonth % 100 == 7 ||
+											todayMonth % 100 == 10 || 
+											todayMonth % 100 == 12) && writeMonth == todayMonth - 1) && todayDay == 1 && writeDay == 30) || 
+										 ( todayMonth % 100 == 3 && writeMonth == todayMonth - 1 && todayDay == 1 && writeDay == 29)}">
+										<c:if test="${vo.deleted == 'no'}">
+											<li>
+												<c:set var="subject" value="${fn:replace(vo.subject, '<', '&lt;')}"/>
+												<c:set var="subject" value="${fn:replace(subject, '>', '&gt;')}"/>	
+												<div class="rankHyper newRank"data-bs-toggle="tooltip" data-bs-placement="left" title="${subject}(어제 ${Date})">
 													<a style="display: block;" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
 														href="increment?idx=${vo.idx}&currentPage=${mainList.currentPage}">
 													${subject}</a>
