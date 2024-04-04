@@ -164,20 +164,8 @@
 			background-color: #6F4AC1; 
 		}
 		
-		#novelListButton:hover {
-			color: #FAFAFA;
-		}
-		
-		#loginButton:hover {
-			color: #FAFAFA;
-		}
-		
-		#logoutButton:hover {
-			color: #FAFAFA;
-		}
-		
-		#registerButton:hover {
-			color: #FAFAFA;
+		#texthovButton:hover {
+			color: white;
 		}
 		
 		#div2_3_button:hover {

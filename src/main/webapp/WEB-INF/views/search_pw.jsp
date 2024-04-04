@@ -37,9 +37,19 @@
 	<div class="container bg-light">
 		<nav class="navbar navbar-light bg-light static-top justify-content-center">
 			<div class="row">
-				<div class="col-lg-2 d-flex align-items-center justify-content-center">
-					<input class="btn btn-warning" type="button" value="Main으로" onclick="location.href='list'"
-						style="width: 100%; height: 100%; max-height: 5em;"/>
+				<div class="col-lg-2 d-flex align-items-center">
+					<div class="flex-grow-1">
+					<input id="texthovButton" class="btn btn-warning" type="button" value="메인으로" onclick="location.href='./'"
+						data-bs-toggle="tooltip" 
+						data-bs-placement="top"
+						title="메인 페이지로 이동합니다"
+						style="width: 100%; height: 100%; max-height: 5em; background-color: #E4992E; border-color: #E4992E;"/>
+					<input id="texthovButton" class="btn btn-warning" type="button" value="소설 목록" onclick="location.href='list'"
+						data-bs-toggle="tooltip" 
+						data-bs-placement="bottom"
+						title="소설글 목록 페이지로 이동합니다"
+						style="width: 100%; height: 100%; max-height: 5em; background-color: #F8B54A; border-color: #F8B54A;"/>
+					</div>
 				</div>
 		
 				<div class="col-lg-8 justify-content-center" class="text-center">
@@ -47,26 +57,51 @@
 						<img alt="소설 투고 사이트" src="./images/logo.jpg" class="img-fluid" width="100%">
 					</span>
 				</div>
-		
-				<div class="col-lg-2 d-flex align-items-center justify-content-center">
-					<!-- 로그인하지 않은 상태 -->
-					<c:if test="${loginCheck != 1}">
-						<input class="btn btn-primary" type="button" value="Login"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./login?backPage=1&currentPage=${currentPage}'" />
-						<input class="btn btn-dark" type="button" value="Register"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./register'"/>
-					</c:if>
-					<!-- 로그인한 상태 -->
-					<c:if test="${loginCheck == 1}">
-						<div class="overflow-auto d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; max-height: 5em;">
-							<div class="loginInfo"><strong>${loginInfoID}</strong></div>님<br/></div>
-						<input class="btn btn-primary" type="button" value="Logout"
-							style="width: 100%; height: 100%; max-height: 3em;" onclick="location.href='./logout?backPage=1&currentPage=${currentPage}'" />
-					</c:if>
-				</div>
+				
+			    <div class="col-lg-2 d-flex align-items-center justify-content-center">
+	              	<div class="flex-grow-1">
+		                <!-- 로그인하지 않은 상태 -->
+						<c:if test="${loginCheck != 1}">
+							<div class="d-flex">
+							<input id="texthovButton" class="btn btn-warning" type="button" value="로그인"
+								data-bs-toggle="tooltip" 
+								data-bs-placement="top"
+								title="로그인 페이지로 이동합니다"
+								style="width: 100%; height: 100%; max-height: 3em; background-color: #F6C243; border-color: #F6C243;" 
+								onclick="location.href='./login?backPage=1&currentPage=${mainList.currentPage}'" />
+							</div>
+							<div class="d-flex">
+							<input id="texthovButton" class="btn btn-warning" type="button" value="회원가입"
+								data-bs-toggle="tooltip" 
+								data-bs-placement="bottom"
+								title="회원가입 페이지로 이동합니다" 
+								style="width: 100%; height: 100%; max-height: 3em; background-color: #D09F2E; border-color: #D09F2E;"
+								onclick="location.href='./register?currentPage=${mainList.currentPage}'"/>
+							</div>
+						</c:if>
+						<!-- 로그인한 상태 -->
+						<c:if test="${loginCheck == 1}">
+							<div class="d-flex align-items-center justify-content-center"
+								style="width: 100%; height: 100%; max-height: 5em; border-radius: 10px; background-color: #eae2e2;">
+				                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+				                  alt="이미지 없음"
+				                  style="width: 80px; padding: 5px; border-radius: 10px;">
+								<span class="loginInfo"><strong>${loginInfoID}</strong></span><br/>
+							</div>
+							<div class="d-flex">
+							<input id="texthovButton" class="btn btn-warning" type="button" value="로그아웃"
+								data-bs-toggle="tooltip" 
+								data-bs-placement="bottom"
+								title="현재 계정에서 로그아웃합니다"
+								style="width: 100%; height: 100%; max-height: 3em; background-color: #EA7B7B; border-color: #EA7B7B;" 
+								onclick="location.href='./logout?backPage=1&currentPage=${mainList.currentPage}'" />
+							</div>
+						</c:if>
+	              	</div>
+			    </div>
 			</div>
 		</nav>
-	</div>
+	</div>	
 	
 	<div class="container bg-light">
 		<div class="row justify-content-center">

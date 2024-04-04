@@ -13,6 +13,10 @@
 		background-color: #FAFAFA;
 	}
 	
+	#texthovButton:hover {
+		color: white;
+	}
+	
 	#div0 {
 		height: 120px;
 		width: 17%;

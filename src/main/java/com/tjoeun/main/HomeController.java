@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tjoeun.main.dao.CommentDAO;
 import com.tjoeun.main.dao.MybatisDAO;
@@ -219,8 +221,6 @@ public class HomeController {
 		model.addAttribute("selectNew", selectNew);
 		
 		// model.addAttribute("currentPage", currentPage);
-		model.addAttribute("subject", request.getParameter("subject"));
-		model.addAttribute("content", request.getParameter("content"));
 		
 		ctx.close();
 		return "write";
@@ -376,6 +376,7 @@ public class HomeController {
 		
 		model.addAttribute("currentPage", currentPage);
 		session.removeAttribute("loginCheck");
+		session.removeAttribute("loginInfoID");
 		
 		switch (backPage) {
 			case 1: return "redirect:list";
@@ -532,23 +533,45 @@ public class HomeController {
 		String searchTag = request.getParameter("searchTag");
 		String category = request.getParameter("category");
 		String searchVal = request.getParameter("searchVal");
-		if(searchTag == null) {searchTag = "subject";}
-		if(category == null) {category = "";}
-		if(searchVal == null) {searchVal = "";}
 		
-		// category = category.trim().length() == 0 ? "" : category;
-		// searchVal = searchVal.trim().length() == 0 ? "" : searchVal;
+		// logger.info(String.format("001searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
-		if (!searchVal.trim().equals("")) { // 검색어가 있으면 세션에 태그와 검색어를 저장
+		if (searchTag == null) {
+			searchTag = "subject";
 			session.setAttribute("searchTag", searchTag);
+		}
+		if (category == null) {
+			category = "";
 			session.setAttribute("category", category);
+		}
+		if (searchVal == null) {
+			searchVal = "";
+			session.setAttribute("searchVal", searchVal);
+		}
+		
+		// logger.info(String.format("002searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		
+		
+		searchVal = searchVal.trim().length() == 0 ? "" : searchVal;
+		if (!searchVal.trim().equals("") || !category.trim().equals("")) { // 검색어가 있으면 세션에 태그와 검색어를 저장
+			session.setAttribute("searchTag", searchTag);
+			// session.setAttribute("category", category);
 			session.setAttribute("searchVal", searchVal);
 		} else { // 검색어가 없으면 세션에 저장된 검색어와 카테고리를 읽어온다.
 			searchTag = (String) session.getAttribute("searchTag");
-			category = (String) session.getAttribute("category");
+			// category = (String) session.getAttribute("category");
 			searchVal = (String) session.getAttribute("searchVal");
+			if (searchTag == null || searchVal == null) {
+				searchTag = "subject";
+				searchVal = "";
+			}
 		}
 		
+		
+		// logger.info(String.format("111searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		
+		
+		category = category.trim().length() == 0 ? "" : category;
 		if (!category.trim().equals("")) { // 카테고리가 있으면 세션에 태그는 category, 카테고리값을 저장
 			searchTag = "category";
 			session.setAttribute("searchTag", searchTag);
@@ -558,13 +581,16 @@ public class HomeController {
 			session.setAttribute("category", "");
 			// searchTag = (String) session.getAttribute("searchTag");
 		}
-		logger.info(String.format("searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		
+
+		// logger.info(String.format("222searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
 		MainList mainList = ctx.getBean("mainList", MainList.class);
 
 		param.setSearchTag(searchTag);
 		param.setCategory(category);
 		param.setSearchVal(searchVal);
+		
 		
 		if (searchTag.equals("subject")) {
 			int totalCount = mapper.searchCount1(param);
@@ -586,6 +612,8 @@ public class HomeController {
 			mainList.setList(mapper.searchList3(param));
 		}
 		
+		// logger.info(String.format("333searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+
 		model.addAttribute("mainList", mainList);
 		
 		// TOP5 글 랭킹
@@ -598,9 +626,6 @@ public class HomeController {
 		model.addAttribute("selectHit", selectHit);
 		model.addAttribute("selectGood", selectGood);
 		model.addAttribute("selectNew", selectNew);
-		// model.addAttribute("searchTag", searchTag);
-		// model.addAttribute("searchVal", searchVal);
-		// model.addAttribute("category", category);
 		
 		ctx.close();
 		return "main";

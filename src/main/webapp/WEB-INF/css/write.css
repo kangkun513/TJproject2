@@ -58,7 +58,11 @@
 	 		word-wrap: break-word;
 			text-overflow: ellipsis;
 		}
-
+		
+		#texthovButton:hover {
+			color: white;
+		}
+		
 		#div0 {
 			height: 120px;
 			width: 17%;

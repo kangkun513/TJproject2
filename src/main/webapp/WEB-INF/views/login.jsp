@@ -38,11 +38,18 @@
 		<nav class="navbar navbar-light bg-light static-top justify-content-center">
 			<div class="row">
 				<div class="col-lg-2 d-flex align-items-center">
-					<input id="novelListButton" class="btn btn-warning" type="button" value="소설 목록" onclick="location.href='list'"
+					<div class="flex-grow-1">
+					<input id="texthovButton" class="btn btn-warning" type="button" value="메인으로" onclick="location.href='./'"
+						data-bs-toggle="tooltip" 
+						data-bs-placement="top"
+						title="메인 페이지로 이동합니다"
+						style="width: 100%; height: 100%; max-height: 5em; background-color: #E4992E; border-color: #E4992E;"/>
+					<input id="texthovButton" class="btn btn-warning" type="button" value="소설 목록" onclick="location.href='list'"
 						data-bs-toggle="tooltip" 
 						data-bs-placement="bottom"
 						title="소설글 목록 페이지로 이동합니다"
-						style="width: 100%; height: 100%; max-height: 5em; background-color: #E4992E; border-color: #E4992E;"/>
+						style="width: 100%; height: 100%; max-height: 5em; background-color: #F8B54A; border-color: #F8B54A;"/>
+					</div>
 				</div>
 		
 				<div class="col-lg-8 justify-content-center" class="text-center">
@@ -52,17 +59,19 @@
 				</div>
 				
 			    <div class="col-lg-2 d-flex align-items-center justify-content-center">
-	              	<div class="flex-grow-1 lg-2">
+	              	<div class="flex-grow-1">
 		                <!-- 로그인하지 않은 상태 -->
 						<c:if test="${loginCheck != 1}">
 							<div class="d-flex">
-							<input id="loginButton" class="btn btn-warning" type="button" value="Login"
+							<input id="texthovButton" class="btn btn-warning" type="button" value="로그인"
 								data-bs-toggle="tooltip" 
-								data-bs-placement="bottom"
+								data-bs-placement="top"
 								title="로그인 페이지로 이동합니다"
 								style="width: 100%; height: 100%; max-height: 3em; background-color: #F6C243; border-color: #F6C243;" 
 								onclick="location.href='./login?backPage=1&currentPage=${mainList.currentPage}'" />
-							<input id="registerButton" class="btn btn-warning" type="button" value="Register"
+							</div>
+							<div class="d-flex">
+							<input id="texthovButton" class="btn btn-warning" type="button" value="회원가입"
 								data-bs-toggle="tooltip" 
 								data-bs-placement="bottom"
 								title="회원가입 페이지로 이동합니다" 
@@ -72,7 +81,7 @@
 						</c:if>
 						<!-- 로그인한 상태 -->
 						<c:if test="${loginCheck == 1}">
-							<div class="overflow-auto d-flex align-items-center justify-content-center" 
+							<div class="d-flex align-items-center justify-content-center"
 								style="width: 100%; height: 100%; max-height: 5em; border-radius: 10px; background-color: #eae2e2;">
 				                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
 				                  alt="이미지 없음"
@@ -80,7 +89,7 @@
 								<span class="loginInfo"><strong>${loginInfoID}</strong></span><br/>
 							</div>
 							<div class="d-flex">
-							<input id="logoutButton" class="btn btn-warning" type="button" value="로그아웃"
+							<input id="texthovButton" class="btn btn-warning" type="button" value="로그아웃"
 								data-bs-toggle="tooltip" 
 								data-bs-placement="bottom"
 								title="현재 계정에서 로그아웃합니다"

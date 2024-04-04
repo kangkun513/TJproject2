@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 		
 		body {
+			-webkit-touch-callout: none;
+		    user-select: none;
+		   	-moz-user-select: none;
+		    -ms-user-select: none;
+		    -webkit-user-select: none;
+			cursor: default;
 			font-family: "Noto Sans KR", sans-serif;
 			font-optical-sizing: auto;
 			font-weight: 500;
@@ -104,6 +110,42 @@
 		 	overflow: hidden;
 		 	line-height: 1.5rem;
   			max-height: 3rem;
+		}
+		
+		.goodButton {
+			transition: background 1s ease-in-out;
+			border-color: gold;
+			background: gold;
+		}
+		
+		.goodButton:hover,
+		.goodButton:active {
+			transition: background 1s ease-in-out;
+			text-shadow: 0 0 5px black;
+			color: white;
+			border-color: gold;
+			background: 
+			linear-gradient(0deg, 
+			rgba(255,0,0,1) 0%, 
+			rgba(255,154,0,1) 10%, 
+			rgba(208,222,33,1) 20%, 
+			rgba(79,220,74,1) 30%, 
+			rgba(63,218,216,1) 40%, 
+			rgba(47,201,226,1) 50%, 
+			rgba(28,127,238,1) 60%, 
+			rgba(95,21,242,1) 70%, 
+			rgba(186,12,248,1) 80%, 
+			rgba(251,7,217,1) 90%, 
+			rgba(255,0,0,1) 100%) 0 0/100% 300%;
+			animation: coloring 2s linear infinite;
+		}
+		
+		@keyframes coloring {
+			to {background-position:0 300%}
+		}
+		
+		#texthovButton:hover {
+			color: white;
 		}
 		
 		#div0 {
