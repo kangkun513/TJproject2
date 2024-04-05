@@ -104,21 +104,21 @@
 					</div>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="./images/logo.jpg" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
+							<img src="./images/sample019.jpg" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
 							<div class="carousel-caption d-none d-md-block" style="color: black;">
 								<h5>대표작1</h5>
 								<p>작품1 내용</p>
 							</div>
 						</div>
 						<div class="carousel-item">
-							<img src="./images/menu_re.png" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
+							<img src="./images/sample014.jpg" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
 							<div class="carousel-caption d-none d-md-block" style="color: black;">
 								<h5>대표작2</h5>
 								<p>작품2 내용</p>
 							</div>
 						</div>
 						<div class="carousel-item">
-							<img src="./images/logo.jpg" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
+							<img src="./images/sample023.jpg" class="d-block w-100" alt="..." style="width: 100%; height: 350px;">
 							<div class="carousel-caption d-none d-md-block" style="color: black;">
 								<h5>대표작3</h5>
 								<p>작품3 내용</p>

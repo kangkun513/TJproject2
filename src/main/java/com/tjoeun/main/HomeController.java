@@ -534,7 +534,7 @@ public class HomeController {
 		String category = request.getParameter("category");
 		String searchVal = request.getParameter("searchVal");
 		
-		// logger.info(String.format("001searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		logger.info(String.format("001searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
 		if (searchTag == null) {
 			searchTag = "subject";
@@ -549,7 +549,7 @@ public class HomeController {
 			session.setAttribute("searchVal", searchVal);
 		}
 		
-		// logger.info(String.format("002searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		logger.info(String.format("002searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
 		
 		searchVal = searchVal.trim().length() == 0 ? "" : searchVal;
@@ -568,7 +568,7 @@ public class HomeController {
 		}
 		
 		
-		// logger.info(String.format("111searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		logger.info(String.format("111searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
 		
 		category = category.trim().length() == 0 ? "" : category;
@@ -583,7 +583,7 @@ public class HomeController {
 		}
 		
 
-		// logger.info(String.format("222searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		logger.info(String.format("222searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 		
 		MainList mainList = ctx.getBean("mainList", MainList.class);
 
@@ -612,7 +612,7 @@ public class HomeController {
 			mainList.setList(mapper.searchList3(param));
 		}
 		
-		// logger.info(String.format("333searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
+		logger.info(String.format("333searchTag: %s, category: %s, searchVal: %s",searchTag, category, searchVal));
 
 		model.addAttribute("mainList", mainList);
 		
